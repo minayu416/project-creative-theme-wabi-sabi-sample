@@ -1,0 +1,362 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --wa:#f5f0e8;--ink:#2a2520;--ink2:#5a5048;--ink3:#9a8e82;
+    --gold:#b8985a;--border:#d4c8b8;
+    --serif-jp:'Shippori Mincho',serif;
+    --serif-en:'DM Serif Display',serif;
+    --sans:'Karla',sans-serif;
+  }
+  body{background:var(--wa);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1;overflow-x:hidden}
+
+  /* NAV */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 48px 18px;border-bottom:0.5px solid var(--border);background:var(--wa);position:sticky;top:0;z-index:100}
+  .nav-logo{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);letter-spacing:0.12em;display:flex;align-items:center;gap:10px}
+  .nav-logo::before{content:'';display:inline-block;width:20px;height:0.5px;background:var(--gold)}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:400;font-family:var(--sans);transition:color .2s}
+  .nav-links a.active{color:var(--gold)}
+
+  /* BREADCRUMB */
+  .breadcrumb{padding:16px 64px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:8px}
+  .bc-item{font-size:10px;letter-spacing:0.15em;color:var(--ink3);font-family:var(--sans);text-decoration:none}
+  .bc-item:hover{color:var(--gold)}
+  .bc-sep{font-size:10px;color:var(--border)}
+  .bc-current{font-size:10px;letter-spacing:0.1em;color:var(--ink2);font-family:var(--sans)}
+
+  /* POST HERO：窄橫幅，不搶版面 */
+  .post-hero{
+    padding:48px 64px 0;
+    max-width:100%;
+  }
+  .post-meta-top{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+  .post-cat{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
+  .post-date{font-size:9px;letter-spacing:0.15em;color:var(--ink3);font-family:var(--sans)}
+  .post-read-time{font-size:9px;letter-spacing:0.12em;color:var(--ink3);font-family:var(--sans)}
+  .post-sep{width:1px;height:10px;background:var(--border)}
+
+  .post-title{
+    font-family:var(--serif-jp);
+    font-size:28px;color:var(--ink);
+    line-height:1.65;letter-spacing:0.05em;
+    margin-bottom:20px;
+    max-width:700px;
+  }
+  .post-desc{
+    font-family:var(--serif-jp);font-size:14px;color:var(--ink3);
+    line-height:2;letter-spacing:0.05em;max-width:620px;
+    border-left:0.5px solid var(--gold);padding-left:16px;
+    margin-bottom:36px;
+  }
+
+  /* 封面圖：窄橫幅，高度限制 */
+  .post-cover{
+    width:100%;height:240px;
+    background:linear-gradient(145deg,#c4b8d0,#9080a8);
+    position:relative;overflow:hidden;
+    margin-bottom:0;
+  }
+  .post-cover-overlay{position:absolute;inset:0;background:rgba(42,37,32,0.08)}
+
+  /* MAIN LAYOUT：左TOC / 中內文 / 右Sidebar */
+  .post-layout{
+    display:grid;
+    grid-template-columns:200px 1fr 260px;
+    gap:0;
+    align-items:start;
+    border-top:0.5px solid var(--border);
+    margin-top:0;
+  }
+
+  /* LEFT：目錄 sticky */
+  .toc{
+    padding:40px 24px 40px 64px;
+    position:sticky;
+    top:64px;
+    border-right:0.5px solid var(--border);
+  }
+  .toc-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+  .toc-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+  .toc-list{display:flex;flex-direction:column;gap:0}
+  .toc-item{
+    font-family:var(--serif-jp);font-size:11px;color:var(--ink3);
+    letter-spacing:0.04em;line-height:1.6;
+    padding:8px 0;border-bottom:0.5px solid transparent;
+    cursor:pointer;transition:color .2s;text-decoration:none;
+    display:block;
+  }
+  .toc-item:hover{color:var(--gold)}
+  .toc-item.active{color:var(--gold);border-left:1.5px solid var(--gold);padding-left:10px;margin-left:-10px}
+  .toc-item.sub{padding-left:12px;font-size:10px;color:var(--border)}
+  .toc-item.sub:hover{color:var(--ink3)}
+
+  /* MIDDLE：文章內文 */
+  .post-body{
+    padding:48px 56px 80px 48px;
+    border-right:0.5px solid var(--border);
+    max-width:100%;
+  }
+
+  /* 文章排版 */
+  .prose{
+    font-family:var(--serif-jp);
+    font-size:15px;color:var(--ink2);
+    line-height:2.2;letter-spacing:0.05em;
+  }
+  .prose p{margin-bottom:1.8em}
+  .prose h2{
+    font-family:var(--serif-jp);font-size:18px;font-weight:500;
+    color:var(--ink);letter-spacing:0.06em;line-height:1.5;
+    margin:2.4em 0 1em;
+    padding-bottom:8px;
+    border-bottom:0.5px solid var(--border);
+    position:relative;
+  }
+  .prose h2::before{
+    content:'';position:absolute;bottom:-0.5px;left:0;
+    width:32px;height:1px;background:var(--gold);
+  }
+  .prose h3{
+    font-family:var(--serif-jp);font-size:15px;font-weight:500;
+    color:var(--ink);letter-spacing:0.06em;
+    margin:2em 0 0.8em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .prose h3::before{content:'';display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+  .prose blockquote{
+    border-left:2px solid var(--gold);
+    padding:16px 20px;margin:1.8em 0;
+    background:rgba(184,152,90,0.06);
+  }
+  .prose blockquote p{margin-bottom:0;color:var(--ink2);font-size:14px;font-style:normal}
+
+  /* 文章標籤 */
+  .post-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:48px;padding-top:32px;border-top:0.5px solid var(--border)}
+  .post-tag{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:5px 12px;border:0.5px solid var(--border);color:var(--ink3);font-family:var(--sans);cursor:pointer;transition:border-color .2s,color .2s}
+  .post-tag:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* 作者欄 */
+  .post-author{
+    display:flex;align-items:center;gap:16px;
+    margin-top:40px;padding:24px;
+    border:0.5px solid var(--border);
+  }
+  .author-av{width:48px;height:48px;border-radius:50%;background:var(--border);flex-shrink:0}
+  .author-info{}
+  .author-name{font-family:var(--serif-jp);font-size:13px;color:var(--ink);margin-bottom:4px}
+  .author-bio{font-size:11px;color:var(--ink3);line-height:1.6;font-family:var(--sans)}
+
+  /* 上下篇導覽 */
+  .post-nav{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:1px;background:var(--border);
+    margin-top:40px;
+  }
+  .post-nav-item{
+    background:var(--wa);padding:20px 24px;
+    cursor:pointer;transition:background .2s;text-decoration:none;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .post-nav-item:hover{background:#ede8df}
+  .post-nav-item.next{align-items:flex-end;text-align:right}
+  .pn-dir{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans)}
+  .pn-title{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:1.6;letter-spacing:0.04em}
+
+  /* RIGHT：Sidebar */
+  .sidebar{padding:40px 28px 40px 28px;display:flex;flex-direction:column;gap:28px}
+  .sb-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:10px;font-family:var(--sans)}
+  .sb-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+  .ads-box{background:#ece7de;border:0.5px solid var(--border);height:220px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+  .ads-box-sm{background:#ece7de;border:0.5px solid var(--border);height:150px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+  .ads-note{font-size:10px;letter-spacing:0.12em;color:var(--ink3)}
+
+  /* 相關文章 */
+  .related-list{display:flex;flex-direction:column}
+  .related-item{
+    padding:12px 0;border-bottom:0.5px solid var(--border);
+    cursor:pointer;transition:opacity .2s;text-decoration:none;
+    display:flex;flex-direction:column;gap:5px;
+  }
+  .related-item:first-child{border-top:0.5px solid var(--border)}
+  .related-item:hover{opacity:.65}
+  .related-cat{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
+  .related-title{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:1.6;letter-spacing:0.04em}
+  .related-date{font-size:9px;color:var(--border);font-family:var(--sans)}
+
+  .wabi-v{position:fixed;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold) 35%,transparent 70%);opacity:.18;pointer-events:none}
+</style>
+
+<div class="wabi-v"></div>
+
+<nav>
+  <div class="nav-logo">月水瓶 &nbsp; Mina Yu</div>
+  <ul class="nav-links">
+    <li><a href="#">首頁</a></li>
+    <li><a href="#">關於</a></li>
+    <li><a href="#" class="active">部落格</a></li>
+    <li><a href="#">作品集</a></li>
+    <li><a href="#">履歷</a></li>
+  </ul>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a class="bc-item" href="#">部落格</a>
+  <span class="bc-sep">›</span>
+  <a class="bc-item" href="#">日常生活</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-current">邁向成熟的ENTP之路</span>
+</div>
+
+<!-- POST HERO -->
+<div class="post-hero">
+  <div class="post-meta-top">
+    <span class="post-cat">MBTI · 日常生活</span>
+    <span class="post-sep"></span>
+    <span class="post-date">Oct 14, 2025</span>
+    <span class="post-sep"></span>
+    <span class="post-read-time">約 15 分鐘閱讀</span>
+  </div>
+  <h1 class="post-title">[MBTI/16型人格測試] 邁向成熟的ENTP之路<br>內涵榮格八維知識</h1>
+  <div class="post-desc">許久未執筆撰寫新的文章，最近在人生的道路上有些迷茫，雖然知道這是件好事，就像是將時間按下暫停，好好釐清自己內心真實的想法。</div>
+</div>
+
+<!-- 封面圖：窄橫幅 -->
+<div class="post-cover">
+  <div class="post-cover-overlay"></div>
+</div>
+
+<!-- 三欄版面 -->
+<div class="post-layout">
+
+  <!-- LEFT TOC -->
+  <div class="toc">
+    <div class="toc-label">目錄</div>
+    <div class="toc-list">
+      <a class="toc-item active" href="#">前言</a>
+      <a class="toc-item" href="#">初期：Ne — 好奇與幻想</a>
+      <a class="toc-item sub" href="#">容易陷入幻想</a>
+      <a class="toc-item sub" href="#">想像但沒有行動</a>
+      <a class="toc-item sub" href="#">三分鐘熱度</a>
+      <a class="toc-item" href="#">Ti — 落實與落地</a>
+      <a class="toc-item sub" href="#">過於理性</a>
+      <a class="toc-item sub" href="#">辯論槓精模式</a>
+      <a class="toc-item" href="#">Fe — 共感與情緒</a>
+      <a class="toc-item" href="#">Si — 穩定與積累</a>
+      <a class="toc-item" href="#">成熟的整合</a>
+      <a class="toc-item" href="#">結語</a>
+    </div>
+  </div>
+
+  <!-- MIDDLE：內文 -->
+  <div class="post-body">
+    <div class="prose">
+
+      <p>在這段時間的反思下，想到可以將幾個月前偶然撰寫「對於 ENTP 人格成長之路」的草稿，補上近期的心得後發布新的文章。這篇文章會結合榮格八維的知識框架，嘗試描述 ENTP 從幼稚走向成熟的路徑。</p>
+
+      <h2>初期：第一功能 Ne — 好奇與幻想的萌芽</h2>
+
+      <p>ENTP 的主導功能是外傾直覺（Ne），這讓我們天生對世界充滿無限的可能性感知。每一件事都像是一扇窗，後面藏著另一個宇宙。初期的 ENTP 通常是最快樂也最混亂的狀態。</p>
+
+      <h3>容易陷入幻想與暢想</h3>
+
+      <p>Ne 過強的時候，腦袋裡永遠有三到四個計畫在同時運行。你可以在五分鐘內描繪出一個宏大的藍圖，然後在隔天就忘記它，因為又出現了更閃亮的新想法。</p>
+
+      <blockquote>
+        <p>幻想本身不是問題，問題是把幻想當成現實，然後跳過中間所有困難的步驟，直接期待結果。</p>
+      </blockquote>
+
+      <h3>三分鐘熱度的陷阱</h3>
+
+      <p>新奇是 Ne 的養分，重複是 Ne 的毒藥。初期的 ENTP 很容易對一件事燃燒殆盡後就迅速失去興趣，換到下一個讓人興奮的目標。這並不是懶惰，而是 Ne 在尋找下一個刺激點。</p>
+
+      <h2>落實、落地 — 第二功能 Ti</h2>
+
+      <p>隨著 ENTP 逐漸成長，內傾思考（Ti）開始發揮作用。Ti 是一個喜歡建立內部邏輯框架、追求精確與一致性的功能。它讓 ENTP 從純粹的幻想者，轉變為有能力分析與拆解問題的思考者。</p>
+
+      <h3>擅長挑出邏輯錯誤</h3>
+
+      <p>Ti 的眼睛永遠在掃描矛盾。當別人說了一個論點，ENTP 的第一反應往往不是認同，而是尋找它的漏洞。這在辯論場合是優勢，在日常社交中有時候就會讓人覺得很累。</p>
+
+      <h2>Fe — 共感與情緒的修煉</h2>
+
+      <p>外傾情感（Fe）是 ENTP 的第三功能，通常在成年後才開始慢慢發展。對許多 ENTP 來說，情感世界是一個既陌生又充滿吸引力的領域。</p>
+
+    </div>
+
+    <!-- 標籤 -->
+    <div class="post-tags">
+      <span class="post-tag">MBTI</span>
+      <span class="post-tag">ENTP</span>
+      <span class="post-tag">榮格八維</span>
+      <span class="post-tag">人格成長</span>
+      <span class="post-tag">日常生活</span>
+    </div>
+
+    <!-- 作者 -->
+    <div class="post-author">
+      <div class="author-av"></div>
+      <div class="author-info">
+        <div class="author-name">Mina Yu</div>
+        <div class="author-bio">ENTP 奇女子。軟體工程師、部落客、多語學習者。月亮水瓶座，喜歡旅行、命理與軟體創作。</div>
+      </div>
+    </div>
+
+    <!-- 上下篇 -->
+    <div class="post-nav">
+      <a class="post-nav-item prev" href="#">
+        <span class="pn-dir">← 上一篇</span>
+        <span class="pn-title">從 Hugo 到 Next.js：重構個人網站並保住 30 萬歷史瀏覽的 SEO 成果</span>
+      </a>
+      <a class="post-nav-item next" href="#">
+        <span class="pn-dir">下一篇 →</span>
+        <span class="pn-title">前端工程師成長計畫 — CSS Layout 樣式、Flexbox、Grid 佈局</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+
+    <div>
+      <div class="sb-label">廣告</div>
+      <div class="ads-box">
+        <div class="ads-note">Google Ads</div>
+        <div class="ads-note" style="font-size:9px;opacity:.5">300 × 250</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sb-label">相關文章</div>
+      <div class="related-list">
+        <a class="related-item" href="#">
+          <span class="related-cat">MBTI</span>
+          <span class="related-title">焦慮型依戀情人行為及思想分析以及如何改善</span>
+          <span class="related-date">Aug 2020</span>
+        </a>
+        <a class="related-item" href="#">
+          <span class="related-cat">人類圖</span>
+          <span class="related-title">G 中心空白及未定義的心得感想</span>
+          <span class="related-date">Jan 2021</span>
+        </a>
+        <a class="related-item" href="#">
+          <span class="related-cat">日常生活</span>
+          <span class="related-title">兩年工作經驗的後端工程師技能樹與職涯發展</span>
+          <span class="related-date">Feb 2022</span>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="sb-label">廣告</div>
+      <div class="ads-box-sm">
+        <div class="ads-note">Google Ads</div>
+        <div class="ads-note" style="font-size:9px;opacity:.5">300 × 200</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

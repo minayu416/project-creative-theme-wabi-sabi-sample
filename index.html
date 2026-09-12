@@ -1,0 +1,856 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400&display=swap");
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  :root {
+    --wa: #f5f0e8;
+    --ink: #2a2520;
+    --ink2: #5a5048;
+    --ink3: #9a8e82;
+    --gold: #b8985a;
+    --border: #d4c8b8;
+    --serif-jp: "Shippori Mincho", serif;
+    --serif-en: "DM Serif Display", serif;
+    --sans: "Karla", sans-serif;
+  }
+  body {
+    background: var(--wa);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px 18px;
+    border-bottom: 0.5px solid var(--border);
+    background: var(--wa);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 0.5px;
+    background: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    text-decoration: none;
+    font-weight: 400;
+    font-family: var(--sans);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--ink);
+  }
+  .nav-links a.active {
+    color: var(--gold);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-family: var(--sans);
+  }
+  .nl-active {
+    color: var(--ink);
+    border-bottom: 0.5px solid var(--gold);
+    padding-bottom: 1px;
+    cursor: pointer;
+  }
+  .nl-sep {
+    color: var(--border);
+  }
+  .nl-inactive {
+    color: var(--ink3);
+    cursor: pointer;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hero-text {
+    padding: 56px 48px 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    font-family: var(--sans);
+  }
+  .hero-name {
+    font-family: var(--serif-en);
+    font-size: 72px;
+    line-height: 0.9;
+    color: var(--ink);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .hero-name-jp {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink3);
+    letter-spacing: 0.2em;
+    margin-bottom: 36px;
+  }
+  .hero-quote {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 2;
+    letter-spacing: 0.06em;
+    max-width: 280px;
+    border-left: 0.5px solid var(--gold);
+    padding-left: 16px;
+    margin-bottom: 40px;
+  }
+  .hero-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 0.5px solid var(--border);
+    color: var(--ink3);
+    font-family: var(--sans);
+  }
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+    background: #e0d8ce;
+    min-height: 480px;
+  }
+  /* 照片感漸層，比純色更有質感 */
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #d8cfc3 0%,
+      #c4b9ac 25%,
+      #b0a89e 50%,
+      #9a9088 75%,
+      #847870 100%
+    );
+  }
+  .hero-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 60% 40%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 60%
+    );
+  }
+  .ink-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .portrait-note {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .vertical-text {
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-family: var(--serif-jp);
+    font-size: 11px;
+    color: rgba(184, 152, 90, 0.5);
+    letter-spacing: 0.3em;
+  }
+
+  /* ── SEC HEADER ── */
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .sec-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-family: var(--sans);
+  }
+  .sec-title {
+    font-family: var(--serif-en);
+    font-size: 28px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .see-all {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    font-family: var(--sans);
+    margin-left: auto;
+    transition: opacity 0.2s;
+  }
+  .see-all:hover {
+    opacity: 0.65;
+  }
+
+  /* ── HERO PHILOSOPHY (merged quote) ── */
+  .hero-philosophy {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 0.5px solid var(--border);
+  }
+  .hp-mark {
+    font-family: var(--serif-en);
+    font-size: 32px;
+    color: var(--border);
+    line-height: 0.6;
+    font-style: italic;
+    user-select: none;
+  }
+  .hp-text {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    letter-spacing: 0.1em;
+    flex: 1;
+  }
+  .hp-sig {
+    font-family: var(--serif-en);
+    font-size: 12px;
+    font-style: italic;
+    color: var(--ink3);
+    white-space: nowrap;
+  }
+
+  /* ── PORTFOLIO ── */
+  .portfolio-section {
+    padding: 60px 64px 0;
+  }
+  .portfolio-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 36px;
+  }
+
+  /* Miri 主打橫幅 */
+  .miri-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.25s;
+  }
+  .miri-banner:hover {
+    opacity: 0.92;
+  }
+  .miri-visual {
+    background: linear-gradient(145deg, #c9a86c, #9a7038, #6a4818);
+    min-height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .miri-glyph {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 180px;
+    color: rgba(255, 255, 255, 0.1);
+    line-height: 1;
+    user-select: none;
+    position: absolute;
+    bottom: -15px;
+    right: -8px;
+  }
+  .miri-badge {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+  }
+  .miri-since {
+    position: absolute;
+    bottom: 22px;
+    right: 22px;
+    font-family: var(--serif-en);
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .miri-content {
+    padding: 44px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    border-left: 0.5px solid var(--border);
+  }
+  .miri-eye {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: var(--sans);
+  }
+  .miri-name {
+    font-family: var(--serif-jp);
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+  .miri-desc {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 2;
+    letter-spacing: 0.04em;
+  }
+  .miri-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .pill {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border: 0.5px solid var(--border);
+    color: var(--ink3);
+    font-family: var(--sans);
+  }
+  .miri-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    color: var(--gold);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 0.5px solid var(--gold);
+    width: fit-content;
+    transition: opacity 0.2s;
+    margin-top: 4px;
+  }
+  .miri-link:hover {
+    opacity: 0.65;
+  }
+
+  /* ── LATEST POSTS (primary section) ── */
+  .posts-section {
+    padding: 52px 64px 0;
+  }
+  .posts-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  /* category filter pills — replaces old standalone Categories grid */
+  .cat-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .cf-pill {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 7px 16px;
+    border: 0.5px solid var(--border);
+    color: var(--ink3);
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cf-pill:hover {
+    color: var(--ink);
+    border-color: var(--ink3);
+  }
+  .cf-pill.active {
+    color: var(--wa);
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: start;
+    padding-bottom: 80px;
+  }
+  .post-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .post-item {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 16px 18px;
+    padding: 22px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-items: start;
+  }
+  .post-item:first-child {
+    border-top: 0.5px solid var(--border);
+  }
+  .post-item:hover {
+    opacity: 0.65;
+  }
+  .post-date {
+    text-align: center;
+    border-right: 0.5px solid var(--border);
+    padding-right: 14px;
+    padding-top: 2px;
+  }
+  .post-day {
+    font-family: var(--serif-en);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    display: block;
+  }
+  .post-mon {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-family: var(--sans);
+    display: block;
+    margin-top: 2px;
+  }
+  .post-cat {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    font-family: var(--sans);
+  }
+  .post-title {
+    font-family: var(--serif-jp);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.75;
+    letter-spacing: 0.04em;
+  }
+  .post-arr {
+    font-size: 10px;
+    color: var(--border);
+    margin-top: 4px;
+    transition: color 0.2s;
+  }
+  .post-item:hover .post-arr {
+    color: var(--gold);
+  }
+
+  /* sidebar — ads only, category list folded into filter pills above */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .sb-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+  }
+  .sb-label::after {
+    content: "";
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+  .ads-box {
+    background: #ece7de;
+    border: 0.5px solid var(--border);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ads-box-sm {
+    background: #ece7de;
+    border: 0.5px solid var(--border);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ads-note {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink3);
+  }
+
+  /* ── PORTFOLIO more-works link (replaces side-row of 3 project cards) ── */
+  .more-works-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-top: 1px;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .more-works-link span {
+    font-family: var(--serif-jp);
+    font-size: 12px;
+    color: var(--ink3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 28px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .foot-left {
+    font-family: var(--serif-jp);
+    font-size: 12px;
+    color: var(--ink3);
+    letter-spacing: 0.1em;
+  }
+  .foot-right {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--ink3);
+    font-family: var(--sans);
+  }
+
+  .wabi-v {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--gold) 35%,
+      transparent 70%
+    );
+    opacity: 0.18;
+    pointer-events: none;
+  }
+</style>
+
+<div class="wabi-v"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">月水瓶 &nbsp; Mina Yu</div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">首頁</a></li>
+    <li><a href="./about">關於</a></li>
+    <li><a href="./blog">部落格</a></li>
+    <li><a href="./portfolio">作品集</a></li>
+    <li><a href="./resume">履歷</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nl-active">中</span>
+    <span class="nl-sep">·</span>
+    <span class="nl-inactive">En</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-label">軟體工程師 · 部落客 · 多語學習者</div>
+    <h1 class="hero-name">@Mina</h1>
+    <div class="hero-name-jp">月水瓶の人生実験室</div>
+    <p class="hero-quote">
+      做你想做的事，然後認真的去實踐。<br />勇敢去挑戰，走出屬於你人生獨特的路。
+    </p>
+    <div class="hero-tags">
+      <span class="tag">ENTP</span>
+      <span class="tag">後端工程師</span>
+      <span class="tag">旅行</span>
+      <span class="tag">命理</span>
+      <span class="tag">語言</span>
+    </div>
+    <div class="hero-philosophy">
+      <span class="hp-mark">"</span>
+      <span class="hp-text">理性也是我 · 浪漫也是我 · 我就是我</span>
+      <span class="hp-sig">— Mina Yu</span>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-photo"></div>
+    <div class="ink-mark"></div>
+    <span class="portrait-note">portrait · 你的照片</span>
+    <div class="vertical-text">人生實験室 ✦ Since 2017</div>
+  </div>
+</section>
+
+<!-- LATEST POSTS -->
+<section class="posts-section">
+  <div class="posts-head">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Latest Posts</h2>
+    </div>
+    <a class="see-all" href="#">全部文章 →</a>
+  </div>
+  <div class="cat-filter">
+    <span class="cf-pill active">全部</span>
+    <span class="cf-pill">⌨ 軟體開發</span>
+    <span class="cf-pill">✈ 旅行日記</span>
+    <span class="cf-pill">☽ 命理學</span>
+    <span class="cf-pill">◎ 外語學習</span>
+    <span class="cf-pill">✦ 日常生活</span>
+  </div>
+  <div class="bottom-grid">
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">14</span><span class="post-mon">Oct 2025</span>
+        </div>
+        <a href="./post/">
+          <div class="post-cat">MBTI · 日常生活</div>
+          <div class="post-title">
+            邁向成熟的ENTP之路 — 榮格八維知識深度解析
+          </div>
+          <div class="post-arr">→</div>
+        </a>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">10</span><span class="post-mon">Jun 2025</span>
+        </div>
+        <div>
+          <div class="post-cat">軟體開發 · SEO</div>
+          <div class="post-title">
+            從 Hugo 到 Next.js：重構個人網站並保住 30 萬歷史瀏覽的 SEO 成果
+          </div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">29</span><span class="post-mon">Feb 2024</span>
+        </div>
+        <div>
+          <div class="post-cat">命理 · 占卜</div>
+          <div class="post-title">
+            塔羅牌抽到三個騎士是什麼巧合？聖杯、金幣、權杖
+          </div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">03</span><span class="post-mon">Dec 2023</span>
+        </div>
+        <div>
+          <div class="post-cat">架構設計</div>
+          <div class="post-title">
+            研究公司產品功能發布流程、設計並提出自動化解決方案
+          </div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">16</span><span class="post-mon">Jan 2021</span>
+        </div>
+        <div>
+          <div class="post-cat">人類圖 · 命理</div>
+          <div class="post-title">來說說 G 中心空白及未定義的心得感想</div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">02</span><span class="post-mon">Aug 2023</span>
+        </div>
+        <div>
+          <div class="post-cat">旅行日記</div>
+          <div class="post-title">
+            冰島環島十日：在世界盡頭的公路上重新認識自己
+          </div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">19</span><span class="post-mon">May 2023</span>
+        </div>
+        <div>
+          <div class="post-cat">外語學習 · 日文</div>
+          <div class="post-title">N1 之後：我如何維持語感而不靠補習班</div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-date">
+          <span class="post-day">07</span><span class="post-mon">Mar 2023</span>
+        </div>
+        <div>
+          <div class="post-cat">軟體開發 · 後端</div>
+          <div class="post-title">
+            用 Firestore 設計多租戶資料結構的取捨與心得
+          </div>
+          <div class="post-arr">→</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div>
+        <div class="sb-label">廣告</div>
+        <div class="ads-box">
+          <div class="ads-note">Google Ads</div>
+          <div class="ads-note" style="font-size: 9px; opacity: 0.5">
+            300 × 250
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sb-label">廣告</div>
+        <div class="ads-box-sm">
+          <div class="ads-note">Google Ads</div>
+          <div class="ads-note" style="font-size: 9px; opacity: 0.5">
+            300 × 200
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section">
+  <div class="portfolio-header">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Flagship Work</h2>
+    </div>
+    <a class="see-all" href="#">查看完整作品集 →</a>
+  </div>
+  <div class="miri-banner">
+    <div class="miri-visual">
+      <div class="miri-glyph">M</div>
+      <div class="miri-badge">Product · 持續開發中</div>
+      <div class="miri-since">2017 — now</div>
+    </div>
+    <div class="miri-content">
+      <div class="miri-eye">Flagship Product</div>
+      <div class="miri-name">Miri 機器人占卜師</div>
+      <div class="miri-desc">
+        自己創意發想、規劃、設計跟開發的線上命理軟體服務。從 2017 年第一版
+        Telegram Bot，走到現在的 Web App，這是我最長情的作品。
+      </div>
+      <div class="miri-stack">
+        <span class="pill">Python</span><span class="pill">Next.js</span
+        ><span class="pill">Firestore</span
+        ><span class="pill">TailwindCSS</span>
+      </div>
+      <a class="miri-link" href="#">查看作品 ↗</a>
+    </div>
+  </div>
+  <div class="more-works-link">
+    <span>象棋暗棋 · Fancy Chat Room · Creative Theme — 還有更多作品</span>
+    <a class="see-all" href="#">全部作品 →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">月水瓶 · @Mina Yu · 人生實験室</div>
+  <div class="foot-right">© 2025 Designed by Mina Yu</div>
+</footer>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,300;0,400;1,300&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --wa:#f5f0e8;--ink:#2a2520;--ink2:#5a5048;--ink3:#9a8e82;
+    --gold:#b8985a;--border:#d4c8b8;
+    --serif-jp:'Shippori Mincho','Noto Serif JP',serif;
+    --serif-en:'DM Serif Display',serif;
+    --sans:'Karla',sans-serif;
+  }
+  body{background:var(--wa);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1;overflow-x:hidden}
+
+  /* NAV */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 48px 18px;border-bottom:0.5px solid var(--border);background:var(--wa)}
+  .nav-logo{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);letter-spacing:0.12em;display:flex;align-items:center;gap:10px}
+  .nav-logo::before{content:'';display:inline-block;width:20px;height:0.5px;background:var(--gold)}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:400;transition:color .2s;font-family:var(--sans)}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+  /* PAGE HERO */
+  .page-hero{padding:64px 64px 52px;border-bottom:0.5px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end}
+  .page-eyebrow{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-family:var(--sans)}
+  .page-title{font-family:var(--serif-en);font-size:52px;font-style:italic;color:var(--ink);line-height:1;margin-bottom:14px}
+  .page-subtitle{font-family:var(--serif-jp);font-size:13px;color:var(--ink3);line-height:2;letter-spacing:0.06em}
+  .page-hero-right{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2.2;letter-spacing:0.06em;border-left:0.5px solid var(--border);padding-left:32px}
+
+  /* SECTION LABEL */
+  .sec-label{display:flex;align-items:center;gap:20px;padding:18px 64px;border-bottom:0.5px solid var(--border)}
+  .sec-label-text{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans);white-space:nowrap}
+  .sec-label-line{flex:1;height:0.5px;background:var(--border)}
+
+  /* ── SPOTLIGHT ── */
+  .spotlight-item{
+    display:grid;grid-template-columns:1fr 1fr;
+    min-height:380px;border-bottom:0.5px solid var(--border);
+    cursor:pointer;transition:background .25s;
+  }
+  .spotlight-item:hover{background:#f0ebe1}
+  .spotlight-item.rev{direction:rtl}
+  .spotlight-item.rev>*{direction:ltr}
+
+  .sp-visual{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .sv-miri{background:linear-gradient(145deg,#c9a86c,#9a7038,#6a4818)}
+  .sv-chess{background:linear-gradient(145deg,#8aab8a,#5a7a5a,#3a5a3a)}
+  .sv-site{background:linear-gradient(145deg,#b0a0c8,#8070a0,#604878)}
+
+  .sp-mono{font-family:var(--serif-en);font-style:italic;font-size:160px;color:rgba(255,255,255,0.1);line-height:1;user-select:none;position:absolute;bottom:-15px;right:-8px}
+  .sp-badge{position:absolute;top:24px;left:24px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-family:var(--sans);padding:5px 12px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.25)}
+  .sp-since{position:absolute;bottom:24px;right:24px;font-family:var(--serif-en);font-size:12px;font-style:italic;color:rgba(255,255,255,0.4)}
+
+  .sp-content{padding:44px 48px;display:flex;flex-direction:column;justify-content:center;gap:16px;border-left:0.5px solid var(--border)}
+  .spotlight-item.rev .sp-content{border-left:none;border-right:0.5px solid var(--border)}
+  .sp-eyebrow{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
+  .sp-title{font-family:var(--serif-jp);font-size:22px;color:var(--ink);letter-spacing:0.06em;line-height:1.4}
+  .sp-desc{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2;letter-spacing:0.04em}
+  .sp-stack{display:flex;flex-wrap:wrap;gap:5px}
+  .pill{font-size:9px;letter-spacing:0.1em;padding:4px 10px;border:0.5px solid var(--border);color:var(--ink3);font-family:var(--sans)}
+  .sp-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--sans);color:var(--gold);text-decoration:none;padding-bottom:2px;border-bottom:0.5px solid var(--gold);width:fit-content;transition:opacity .2s}
+  .sp-link:hover{opacity:.65}
+
+  /* ── SIDE PROJECTS — accordion list ── */
+  .side-list{padding:0 64px}
+
+  .side-item{
+    border-bottom:0.5px solid var(--border);
+    cursor:pointer;
+    overflow:hidden;
+  }
+  .side-item:first-child{border-top:0.5px solid var(--border)}
+
+  .side-row{
+    display:grid;
+    grid-template-columns:32px 1fr auto;
+    gap:0 24px;
+    align-items:center;
+    padding:24px 0;
+    transition:opacity .2s;
+  }
+  .side-item:hover .side-row{opacity:.7}
+
+  .side-index{font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--border)}
+  .side-item.open .side-index{color:var(--gold)}
+
+  .side-main{}
+  .side-name{font-family:var(--serif-jp);font-size:15px;color:var(--ink);letter-spacing:0.05em;margin-bottom:5px}
+  .side-sub{font-size:11px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.05em}
+
+  .side-right{display:flex;align-items:center;gap:16px}
+  .side-stack{font-size:10px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.05em;text-align:right;line-height:1.6}
+  .side-arrow{font-size:12px;color:var(--gold);transition:transform .25s;display:inline-block}
+  .side-item.open .side-arrow{transform:rotate(90deg)}
+
+  /* expanded detail */
+  .side-detail{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease, opacity .3s;
+    opacity:0;
+  }
+  .side-item.open .side-detail{max-height:200px;opacity:1}
+  .side-detail-inner{
+    padding:0 0 28px calc(32px + 24px);
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .side-desc{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:1.9;letter-spacing:0.04em;max-width:560px}
+  .side-pills{display:flex;flex-wrap:wrap;gap:5px}
+  .side-link{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--sans);color:var(--gold);text-decoration:none;border-bottom:0.5px solid var(--gold);padding-bottom:1px;transition:opacity .2s}
+  .side-link:hover{opacity:.65}
+
+  /* ── GITHUB FOOTER ROW ── */
+  .github-row{
+    margin:0 64px;
+    border-top:0.5px solid var(--border);
+    padding:32px 0 80px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .github-left{display:flex;flex-direction:column;gap:8px}
+  .github-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans)}
+  .github-name{font-family:var(--serif-jp);font-size:15px;color:var(--ink);letter-spacing:0.05em}
+  .github-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--sans);color:var(--gold);text-decoration:none;border-bottom:0.5px solid var(--gold);padding-bottom:2px;transition:opacity .2s}
+  .github-link:hover{opacity:.65}
+
+  /* ── TIMELINE ── */
+  .timeline{padding:0 64px 80px;position:relative}
+  .timeline::before{content:'';position:absolute;left:calc(64px + 120px);top:0;bottom:0;width:0.5px;background:var(--border)}
+  .tl-legend{display:flex;gap:24px;align-items:center;padding:32px 0 0;border-top:0.5px solid var(--border);margin-bottom:8px}
+  .leg-item{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.12em}
+  .leg-dot{width:7px;height:7px;border-radius:50%}
+  .leg-dot.g{background:var(--gold)}
+  .leg-dot.gr{background:var(--border)}
+
+  .tl-item{display:grid;grid-template-columns:120px 1fr;gap:0 40px;padding:28px 0;border-bottom:0.5px solid var(--border);position:relative}
+  .tl-item::after{content:'';position:absolute;left:calc(120px + 16px);top:38px;width:6px;height:6px;border-radius:50%;background:var(--border);border:1.5px solid var(--wa)}
+  .tl-item.own::after{background:var(--gold);width:8px;height:8px;left:calc(120px + 15px)}
+  .tl-date{font-family:var(--serif-en);font-size:11px;font-style:italic;color:var(--ink3);letter-spacing:0.05em;padding-top:3px;text-align:right;line-height:1.7}
+  .tl-kind{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-family:var(--sans);margin-bottom:7px;color:var(--ink3)}
+  .tl-item.own .tl-kind{color:var(--gold)}
+  .tl-title{font-family:var(--serif-jp);font-size:14px;color:var(--ink);letter-spacing:0.05em;line-height:1.5;margin-bottom:8px}
+  .tl-tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tl-tag{font-size:9px;letter-spacing:0.08em;padding:3px 8px;border:0.5px solid var(--border);color:var(--ink3);font-family:var(--sans)}
+  .tl-item.own .tl-tag{border-color:rgba(184,152,90,0.35);color:var(--gold)}
+
+  .wabi-v{position:fixed;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold) 35%,transparent 70%);opacity:.18;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wabi-v"></div>
+
+<nav>
+  <div class="nav-logo">月水瓶 &nbsp; Mina Yu</div>
+  <ul class="nav-links">
+    <li><a href="#">首頁</a></li><li><a href="#">關於</a></li>
+    <li><a href="#" class="active">作品集</a></li>
+    <li><a href="#">部落格</a></li><li><a href="#">履歷</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div>
+    <div class="page-eyebrow">Portfolio · 作品集</div>
+    <div class="page-title">Things I<br>Made</div>
+    <div class="page-subtitle">自己創意發想、設計並開發的軟體作品</div>
+  </div>
+  <div class="page-hero-right">
+    我的夢想是透過軟體開發來實踐腦內稀奇古怪的創意，<br>
+    每一個作品都是一段旅程的起點，<br>而不是終點。
+  </div>
+</div>
+
+<!-- SPOTLIGHT -->
+<div class="sec-label" style="margin-top:0">
+  <span class="sec-label-text">Spotlight · 主打作品</span>
+  <div class="sec-label-line"></div>
+</div>
+
+<div class="spotlight-item">
+  <div class="sp-visual sv-miri">
+    <div class="sp-mono">M</div>
+    <div class="sp-badge">Product · 持續開發中</div>
+    <div class="sp-since">2017 — now</div>
+  </div>
+  <div class="sp-content">
+    <div class="sp-eyebrow">01 · Flagship Product</div>
+    <div class="sp-title">Miri 機器人占卜師</div>
+    <div class="sp-desc">自己創意發想、規劃、設計跟開發的線上命理軟體服務。從 2017 年第一版 Telegram Bot，走到現在的 Web App，這是我最長情的作品。</div>
+    <div class="sp-stack"><span class="pill">Python</span><span class="pill">Next.js</span><span class="pill">Firestore</span><span class="pill">TailwindCSS</span></div>
+    <a class="sp-link" href="#">查看作品 ↗</a>
+  </div>
+</div>
+
+<div class="spotlight-item rev">
+  <div class="sp-visual sv-chess">
+    <div class="sp-mono">棋</div>
+    <div class="sp-badge">Project · v1.1.0</div>
+    <div class="sp-since">2024 — 2025</div>
+  </div>
+  <div class="sp-content">
+    <div class="sp-eyebrow">02 · Game Project</div>
+    <div class="sp-title">象棋暗棋網站</div>
+    <div class="sp-desc">包含單人模式及連線對弈的象棋暗棋網站。從遊戲規則到即時連線架構都自己設計，單人可對抗電腦，連線可與朋友即時對弈。</div>
+    <div class="sp-stack"><span class="pill">Next.js</span><span class="pill">TailwindCSS</span><span class="pill">Firestore</span></div>
+    <a class="sp-link" href="#">查看作品 ↗</a>
+  </div>
+</div>
+
+<div class="spotlight-item">
+  <div class="sp-visual sv-site">
+    <div class="sp-mono">@</div>
+    <div class="sp-badge">Project · 本站</div>
+    <div class="sp-since">2022 — now</div>
+  </div>
+  <div class="sp-content">
+    <div class="sp-eyebrow">03 · Personal Website</div>
+    <div class="sp-title">@Mina Influence<br>人生實験室</div>
+    <div class="sp-desc">7 年前的夢想，一邊工作一邊學前端，從 Hugo 到 Nuxt.js 到 Next.js，所有設計與開發都由自己一手包辦。這個網站本身就是我最真實的作品。</div>
+    <div class="sp-stack"><span class="pill">Next.js</span><span class="pill">TailwindCSS</span><span class="pill">Hugo</span><span class="pill">Nuxt.js</span></div>
+    <a class="sp-link" href="#">你正在看 ↗</a>
+  </div>
+</div>
+
+<!-- SIDE PROJECTS -->
+<div class="sec-label">
+  <span class="sec-label-text">Side Projects · 創意實驗</span>
+  <div class="sec-label-line"></div>
+</div>
+
+<div class="side-list">
+
+  <div class="side-item" onclick="toggle(this)">
+    <div class="side-row">
+      <div class="side-index">01</div>
+      <div class="side-main">
+        <div class="side-name">Fancy Chat Room</div>
+        <div class="side-sub">即時線上聊天室</div>
+      </div>
+      <div class="side-right">
+        <div class="side-stack">React.js<br>Firestore</div>
+        <span class="side-arrow">›</span>
+      </div>
+    </div>
+    <div class="side-detail">
+      <div class="side-detail-inner">
+        <div class="side-desc">製作簡易聊天室作為學習及練習前端工程設計，用 React.js 及 Firestore 開發。這是第一次嘗試即時資料庫與前端整合，後來成為暗棋網站連線功能的基礎。</div>
+        <div class="side-pills"><span class="pill">React.js</span><span class="pill">TailwindCSS</span><span class="pill">Firestore</span></div>
+        <a class="side-link" href="#">查看專案 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-item" onclick="toggle(this)">
+    <div class="side-row">
+      <div class="side-index">02</div>
+      <div class="side-main">
+        <div class="side-name">Creative Theme: Own Influence</div>
+        <div class="side-sub">第一個自製前端主題</div>
+      </div>
+      <div class="side-right">
+        <div class="side-stack">Nuxt.js<br>TailwindCSS</div>
+        <span class="side-arrow">›</span>
+      </div>
+    </div>
+    <div class="side-detail">
+      <div class="side-detail-inner">
+        <div class="side-desc">自己創作的前端網頁設計主題，也是第一次從 0 到有一邊學一邊做的前端網頁設計。目前作為個人網站的主題 Demo 展示，紀錄著自己踏入前端的起點。</div>
+        <div class="side-pills"><span class="pill">Nuxt.js</span><span class="pill">TailwindCSS</span><span class="pill">HTML</span><span class="pill">CSS</span></div>
+        <a class="side-link" href="#">查看 Demo ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-item" onclick="toggle(this)">
+    <div class="side-row">
+      <div class="side-index">03</div>
+      <div class="side-main">
+        <div class="side-name">Creative Theme: Simple Blog</div>
+        <div class="side-sub">參考 Exile Mobile 的前端主題練習</div>
+      </div>
+      <div class="side-right">
+        <div class="side-stack">Vue.js<br>TailwindCSS</div>
+        <span class="side-arrow">›</span>
+      </div>
+    </div>
+    <div class="side-detail">
+      <div class="side-detail-inner">
+        <div class="side-desc">參考 Exile Mobile 的網頁來練習前端設計，以簡單的部落格頁面及文章為概念，搭配自己的創意做出另一個 Demo 主題展示。</div>
+        <div class="side-pills"><span class="pill">Vue.js</span><span class="pill">TailwindCSS</span><span class="pill">HTML</span><span class="pill">CSS</span></div>
+        <a class="side-link" href="#">查看 Demo ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-item" onclick="toggle(this)">
+    <div class="side-row">
+      <div class="side-index">04</div>
+      <div class="side-main">
+        <div class="side-name">Chest</div>
+        <div class="side-sub">Python 工具函式庫</div>
+      </div>
+      <div class="side-right">
+        <div class="side-stack">Python<br>Github</div>
+        <span class="side-arrow">›</span>
+      </div>
+    </div>
+    <div class="side-detail">
+      <div class="side-detail-inner">
+        <div class="side-desc">這個藏寶箱裝著過去在專案中，使用 Python 撰寫且包裝好的 class methods 及 functions，整理成開源工具庫供自己與他人重複使用。</div>
+        <div class="side-pills"><span class="pill">Python</span><span class="pill">Open Source</span></div>
+        <a class="side-link" href="#">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- GITHUB -->
+<div class="github-row">
+  <div class="github-left">
+    <div class="github-label">Open Source · 更多作品</div>
+    <div class="github-name">github.com / minayu416</div>
+  </div>
+  <a class="github-link" href="#">查看 Github ↗</a>
+</div>
+
+<!-- TIMELINE -->
+<div class="sec-label" style="margin-top:0">
+  <span class="sec-label-text">Timeline · 創作與職涯軌跡</span>
+  <div class="sec-label-line"></div>
+</div>
+
+<div class="timeline">
+  <div class="tl-legend">
+    <div class="leg-item"><div class="leg-dot g"></div>自作作品</div>
+    <div class="leg-item"><div class="leg-dot gr"></div>公司項目</div>
+  </div>
+
+  <div class="tl-item own">
+    <div class="tl-date">Apr 2017<br>— now</div>
+    <div class="tl-body">
+      <div class="tl-kind">自作作品 · Product</div>
+      <div class="tl-title">Miri 機器人占卜師 v1.0 → v2.0</div>
+      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Next.js</span><span class="tl-tag">Firestore</span><span class="tl-tag">Telegram Bot</span></div>
+    </div>
+  </div>
+  <div class="tl-item own">
+    <div class="tl-date">Apr–May 2025</div>
+    <div class="tl-body">
+      <div class="tl-kind">自作作品 · Project</div>
+      <div class="tl-title">人生實験室 — Next.js 重構</div>
+      <div class="tl-tags"><span class="tl-tag">Next.js</span><span class="tl-tag">TailwindCSS</span></div>
+    </div>
+  </div>
+  <div class="tl-item own">
+    <div class="tl-date">May 2024<br>— May 2025</div>
+    <div class="tl-body">
+      <div class="tl-kind">自作作品 · Project</div>
+      <div class="tl-title">象棋暗棋網站 v1.0 → v1.1.0</div>
+      <div class="tl-tags"><span class="tl-tag">Next.js</span><span class="tl-tag">TailwindCSS</span><span class="tl-tag">Firestore</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">Feb–Apr 2025</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目</div>
+      <div class="tl-title">文件管理系統</div>
+      <div class="tl-tags"><span class="tl-tag">React</span><span class="tl-tag">TypeScript</span><span class="tl-tag">GraphQL</span><span class="tl-tag">Apollo</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">Aug–Dec 2024</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目</div>
+      <div class="tl-title">修車追蹤系統</div>
+      <div class="tl-tags"><span class="tl-tag">React.js</span><span class="tl-tag">C#</span><span class="tl-tag">.NET</span></div>
+    </div>
+  </div>
+  <div class="tl-item own">
+    <div class="tl-date">Dec 2022<br>— Feb 2023</div>
+    <div class="tl-body">
+      <div class="tl-kind">自作作品 · Side Project</div>
+      <div class="tl-title">Fancy Chat Room</div>
+      <div class="tl-tags"><span class="tl-tag">React.js</span><span class="tl-tag">Firestore</span></div>
+    </div>
+  </div>
+  <div class="tl-item own">
+    <div class="tl-date">Oct–Nov 2022</div>
+    <div class="tl-body">
+      <div class="tl-kind">自作作品 · Creative</div>
+      <div class="tl-title">Creative Theme: Own Influence</div>
+      <div class="tl-tags"><span class="tl-tag">Nuxt.js</span><span class="tl-tag">TailwindCSS</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">May–Dec 2023</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目 · 內部黑客松</div>
+      <div class="tl-title">弱點掃描自動化解決方案</div>
+      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Selenium</span><span class="tl-tag">Fortify API</span><span class="tl-tag">Jira API</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">Feb 2022<br>— Feb 2023</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目</div>
+      <div class="tl-title">Patient Roster — 美國醫療資料系統</div>
+      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Java</span><span class="tl-tag">AWS Lambda</span><span class="tl-tag">DynamoDB</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">Nov 2019<br>— May 2020</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目</div>
+      <div class="tl-title">路燈智慧管理系統 — 全台 26 萬盞路燈</div>
+      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Flask</span><span class="tl-tag">MQTT</span><span class="tl-tag">IoT</span></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">Apr–Sep 2020</div>
+    <div class="tl-body">
+      <div class="tl-kind">公司項目</div>
+      <div class="tl-title">太陽能案場監控平台 — 全台 116 個案場</div>
+      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Flask</span><span class="tl-tag">MQTT</span><span class="tl-tag">Docker</span><span class="tl-tag">Redis</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(el){
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.side-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+</script>
+</body>
+</html>

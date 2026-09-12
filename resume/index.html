@@ -1,0 +1,426 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--wa:#f5f0e8;--ink:#2a2520;--ink2:#5a5048;--ink3:#9a8e82;--gold:#b8985a;--border:#d4c8b8;--serif-jp:'Shippori Mincho',serif;--serif-en:'DM Serif Display',serif;--sans:'Karla',sans-serif;}
+  body{background:var(--wa);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1;overflow-x:hidden}
+
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 48px 18px;border-bottom:0.5px solid var(--border);background:var(--wa)}
+  .nav-logo{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);letter-spacing:0.12em;display:flex;align-items:center;gap:10px}
+  .nav-logo::before{content:'';display:inline-block;width:20px;height:0.5px;background:var(--gold)}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-family:var(--sans);transition:color .2s}
+  .nav-links a.active{color:var(--gold)}
+
+  /* ── RESUME HEADER ── */
+  .resume-header{
+    padding:52px 64px 44px;
+    border-bottom:0.5px solid var(--border);
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:32px;
+    align-items:end;
+  }
+  .rh-eyebrow{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);margin-bottom:14px}
+  .rh-name{font-family:var(--serif-en);font-size:48px;font-style:italic;color:var(--ink);line-height:1;margin-bottom:10px}
+  .rh-name-zh{font-family:var(--serif-jp);font-size:14px;color:var(--ink3);letter-spacing:0.2em;margin-bottom:16px}
+  .rh-title{font-family:var(--serif-jp);font-size:14px;color:var(--ink2);letter-spacing:0.06em;line-height:1.7}
+  .rh-links{display:flex;align-items:center;gap:20px;margin-top:20px}
+  .rh-link{font-size:10px;letter-spacing:0.14em;color:var(--ink3);text-decoration:none;font-family:var(--sans);display:flex;align-items:center;gap:5px;transition:color .2s}
+  .rh-link:hover{color:var(--gold)}
+  .rh-link-dot{width:2px;height:2px;border-radius:50%;background:var(--border)}
+
+  /* Download button */
+  .dl-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+    font-family:var(--sans);color:var(--ink2);
+    border:0.5px solid var(--border);padding:12px 20px;
+    cursor:pointer;background:none;
+    transition:border-color .2s,color .2s;
+    white-space:nowrap;
+    align-self:flex-start;
+  }
+  .dl-btn:hover{border-color:var(--gold);color:var(--gold)}
+  .lang-switch{font-size:10px;letter-spacing:0.15em;color:var(--ink3);font-family:var(--sans);display:flex;gap:8px;align-items:center;margin-top:10px}
+  .lang-switch a{color:var(--ink3);text-decoration:none;transition:color .2s}
+  .lang-switch a:hover,.lang-switch a.active{color:var(--gold)}
+
+  /* ── SUMMARY ── */
+  .summary{
+    padding:40px 64px;
+    border-bottom:0.5px solid var(--border);
+    display:grid;grid-template-columns:120px 1fr;gap:0 48px;
+    align-items:start;
+  }
+  .summary-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);padding-top:3px}
+  .summary-text{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2.1;letter-spacing:0.04em}
+
+  /* ── MAIN LAYOUT ── */
+  .resume-main{display:grid;grid-template-columns:240px 1fr;align-items:start}
+
+  /* LEFT SIDEBAR：sticky */
+  .resume-left{
+    padding:40px 28px 60px 64px;
+    border-right:0.5px solid var(--border);
+    position:sticky;top:0;
+  }
+  .rl-section{margin-bottom:36px}
+  .rl-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;display:flex;align-items:center;gap:10px;font-family:var(--sans)}
+  .rl-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+
+  /* 技能 */
+  .skill-group{margin-bottom:16px}
+  .skill-group-name{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans);margin-bottom:8px}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:5px}
+  .skill-tag{font-size:9px;letter-spacing:0.08em;padding:4px 8px;border:0.5px solid var(--border);color:var(--ink2);font-family:var(--sans)}
+  .skill-tag.main{border-color:rgba(184,152,90,0.5);color:var(--gold)}
+
+  /* 語言 */
+  .lang-list{display:flex;flex-direction:column;gap:0}
+  .lang-item{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:0.5px solid var(--border)}
+  .lang-item:first-child{border-top:0.5px solid var(--border)}
+  .lang-name{font-family:var(--serif-jp);font-size:12px;color:var(--ink2)}
+  .lang-level{font-size:9px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.1em}
+
+  /* 教育 */
+  .edu-item{margin-bottom:16px}
+  .edu-school{font-family:var(--serif-jp);font-size:13px;color:var(--ink);margin-bottom:5px}
+  .edu-dept{font-size:11px;color:var(--ink3);font-family:var(--sans);line-height:1.5;letter-spacing:0.04em}
+  .edu-period{font-size:10px;color:var(--border);font-family:var(--sans);margin-top:4px;letter-spacing:0.08em}
+
+  /* 聯絡 */
+  .contact-list{display:flex;flex-direction:column;gap:8px}
+  .contact-item{display:flex;flex-direction:column;gap:3px}
+  .contact-key{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
+  .contact-val{font-size:11px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.04em}
+
+  /* ── RIGHT：工作經歷時間軸 ── */
+  .resume-right{padding:40px 56px 80px 48px}
+
+  .section-block{margin-bottom:52px}
+  .section-heading{
+    display:flex;align-items:center;gap:16px;
+    margin-bottom:28px;
+    padding-bottom:12px;
+    border-bottom:0.5px solid var(--border);
+  }
+  .sh-title{font-family:var(--serif-en);font-size:22px;font-style:italic;color:var(--ink)}
+  .sh-num{font-size:10px;letter-spacing:0.2em;color:var(--gold);font-family:var(--sans)}
+
+  /* 工作項目 */
+  .job-item{
+    display:grid;grid-template-columns:1fr;
+    margin-bottom:36px;
+    position:relative;
+    padding-left:20px;
+  }
+  .job-item::before{
+    content:'';position:absolute;
+    left:0;top:8px;
+    width:6px;height:6px;border-radius:50%;
+    background:var(--gold);border:1.5px solid var(--wa);
+  }
+  /* 連接線 */
+  .job-item::after{
+    content:'';position:absolute;
+    left:2.5px;top:16px;bottom:-28px;
+    width:0.5px;background:var(--border);
+  }
+  .job-item:last-child::after{display:none}
+
+  .job-header{margin-bottom:10px}
+  .job-title{font-family:var(--serif-jp);font-size:15px;color:var(--ink);letter-spacing:0.05em;margin-bottom:4px}
+  .job-company{font-size:12px;color:var(--gold);font-family:var(--sans);letter-spacing:0.1em;margin-bottom:4px}
+  .job-meta{display:flex;align-items:center;gap:12px}
+  .job-period{font-size:10px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.08em}
+  .job-stack{font-size:9px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.05em}
+
+  .job-bullets{
+    display:flex;flex-direction:column;gap:8px;
+    margin-top:12px;
+  }
+  .job-bullet{
+    display:grid;grid-template-columns:12px 1fr;gap:0 10px;
+    align-items:start;
+  }
+  .jb-dot{
+    width:3px;height:3px;border-radius:50%;
+    background:var(--border);margin-top:7px;flex-shrink:0;
+  }
+  .jb-text{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:1.9;letter-spacing:0.04em}
+  .jb-highlight{color:var(--gold)}
+
+  /* 技術標籤 */
+  .job-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+  .job-tag{font-size:8px;letter-spacing:0.08em;padding:3px 7px;border:0.5px solid var(--border);color:var(--ink3);font-family:var(--sans)}
+
+  /* 個人專案 */
+  .proj-item{
+    display:grid;grid-template-columns:1fr;
+    margin-bottom:24px;
+    padding:20px 22px;
+    border:0.5px solid var(--border);
+    position:relative;
+    transition:background .2s;cursor:pointer;
+  }
+  .proj-item:hover{background:#f0ebe1}
+  .proj-arrow{position:absolute;top:16px;right:16px;font-size:11px;color:var(--gold);opacity:0;transition:opacity .2s}
+  .proj-item:hover .proj-arrow{opacity:1}
+  .proj-name{font-family:var(--serif-jp);font-size:14px;color:var(--ink);letter-spacing:0.05em;margin-bottom:6px}
+  .proj-desc{font-family:var(--serif-jp);font-size:12px;color:var(--ink3);line-height:1.8;letter-spacing:0.04em;margin-bottom:10px}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:4px}
+  .proj-tag{font-size:8px;letter-spacing:0.08em;padding:3px 7px;border:0.5px solid rgba(184,152,90,0.4);color:var(--gold);font-family:var(--sans)}
+
+  .wabi-v{position:fixed;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold) 35%,transparent 70%);opacity:.18;pointer-events:none}
+</style>
+
+<div class="wabi-v"></div>
+
+<nav>
+  <div class="nav-logo">月水瓶 &nbsp; Mina Yu</div>
+  <ul class="nav-links">
+    <li><a href="#">首頁</a></li>
+    <li><a href="#">關於</a></li>
+    <li><a href="#">部落格</a></li>
+    <li><a href="#">作品集</a></li>
+    <li><a href="#" class="active">履歷</a></li>
+  </ul>
+</nav>
+
+<!-- RESUME HEADER -->
+<div class="resume-header">
+  <div>
+    <div class="rh-eyebrow">Resume · 履歷</div>
+    <div class="rh-name">Mina Yu</div>
+    <div class="rh-name-zh">余明融</div>
+    <div class="rh-title">資深軟體工程師 · 全端經驗<br>Python · React · Next.js · AWS · 5 年以上</div>
+    <div class="rh-links">
+      <a class="rh-link" href="#">LinkedIn</a>
+      <div class="rh-link-dot"></div>
+      <a class="rh-link" href="#">GitHub</a>
+      <div class="rh-link-dot"></div>
+      <a class="rh-link" href="#">yuukoyu416@gmail.com</a>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+    <button class="dl-btn">↓ 下載 PDF</button>
+    <div class="lang-switch">
+      <a href="#" class="active">中文</a>
+      <span style="color:var(--border)">·</span>
+      <a href="#">EN</a>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="summary-label">簡介</div>
+  <div class="summary-text">
+    具備 5 年以上開發經驗，專精 Python 後端（4年）與 React/Next.js 前端（2年）。橫跨汽車、醫療、IoT 與 BI 等多元產業。曾優化 IoT 資料收集效能 80%、將部署時間縮短 95% 以上，展現以創新思維解決問題的能力。具備帶領 Junior 工程師與跨國團隊（美、印、亞）合作經驗，同時是累積 30 萬觀看的內容創作者。
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="resume-main">
+
+  <!-- LEFT：技能、語言、教育、聯絡 -->
+  <div class="resume-left">
+
+    <div class="rl-section">
+      <div class="rl-label">核心技能</div>
+      <div class="skill-group">
+        <div class="skill-group-name">Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag main">Python</span>
+          <span class="skill-tag main">AWS Lambda</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Microservices</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Redis</span>
+          <span class="skill-tag">MQTT</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag main">Next.js</span>
+          <span class="skill-tag main">React</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">TailwindCSS</span>
+          <span class="skill-tag">GraphQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Cloud & Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Firestore</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Playwright</span>
+          <span class="skill-tag">Selenium</span>
+          <span class="skill-tag">Jira</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-section">
+      <div class="rl-label">語言能力</div>
+      <div class="lang-list">
+        <div class="lang-item"><span class="lang-name">中文</span><span class="lang-level">母語</span></div>
+        <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">中級</span></div>
+        <div class="lang-item"><span class="lang-name">日本語</span><span class="lang-level">N3</span></div>
+        <div class="lang-item"><span class="lang-name">Español</span><span class="lang-level">中級</span></div>
+      </div>
+    </div>
+
+    <div class="rl-section">
+      <div class="rl-label">教育</div>
+      <div class="edu-item">
+        <div class="edu-school">實踐大學</div>
+        <div class="edu-dept">資訊科技與管理學系<br>碩士 · 學士</div>
+        <div class="edu-period">2011 — 2018</div>
+      </div>
+    </div>
+
+    <div class="rl-section">
+      <div class="rl-label">聯絡</div>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-key">Email</span>
+          <span class="contact-val">yuukoyu416@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-key">LinkedIn</span>
+          <span class="contact-val">in/ming-jung-yu</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-key">GitHub</span>
+          <span class="contact-val">minayu416</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT：工作經歷 + 個人專案 -->
+  <div class="resume-right">
+
+    <!-- 工作經歷 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span class="sh-num">01</span>
+        <h2 class="sh-title">Work Experience</h2>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <div class="job-title">資深軟體開發工程師</div>
+          <div class="job-company">TAO Digital Solutions</div>
+          <div class="job-meta">
+            <span class="job-period">Mar 2024 — Apr 2025</span>
+          </div>
+        </div>
+        <div class="job-bullets">
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">與美國與印度團隊協作，開發汽車維修預約平台、追蹤系統及電子文件簽署系統。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">修正後端快取邏輯，優化 MFA 認證頁面 UX 使用體驗。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">建立自動化 E2E 測試流程，<span class="jb-highlight">將人工測試時間縮短約 90%</span>（1–2 小時 → 5–10 分鐘）。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">使用 TypeScript 自動化 Excel 工時報表，<span class="jb-highlight">降低人工作業 95%</span>（10 分鐘 → 2 秒）。</div></div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">ReactJS</span><span class="job-tag">TypeScript</span><span class="job-tag">.NET / C#</span><span class="job-tag">GraphQL</span><span class="job-tag">MongoDB</span><span class="job-tag">Playwright</span><span class="job-tag">Monorepo</span>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <div class="job-title">軟體工程師</div>
+          <div class="job-company">Innova Solutions Taiwan</div>
+          <div class="job-meta">
+            <span class="job-period">Feb 2022 — Dec 2023</span>
+          </div>
+        </div>
+        <div class="job-bullets">
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">為美國醫療客戶開發大型病患資料收集與處理系統，跨 PST／CST 時區協作。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">設計自動化 AWS Lambda 發布流程（整合 Jira、Fortify、Black Duck），<span class="jb-highlight">部署時間從 1 小時縮至 3–5 分鐘</span>。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">指導新人熟悉 AWS 架構與 Scrum 流程，撰寫技術文件與知識傳承。</div></div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">Python</span><span class="job-tag">AWS Lambda</span><span class="job-tag">S3 · SQS · SNS</span><span class="job-tag">Microservices</span><span class="job-tag">Selenium</span>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <div class="job-title">後端工程師</div>
+          <div class="job-company">AcBel Polytech Inc.</div>
+          <div class="job-meta">
+            <span class="job-period">Nov 2019 — Mar 2021</span>
+          </div>
+        </div>
+        <div class="job-bullets">
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">建構太陽能與智慧路燈 IoT 後端平台，透過 Python 與 MQTT 處理即時感測器資料。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">導入非同步設計、Redis 快取與資料庫索引，<span class="jb-highlight">資料處理速度提升 80%</span>。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">主導 Scrum 會議，協助新人進行 Code Review 與技術成長。</div></div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">Python</span><span class="job-tag">PostgreSQL</span><span class="job-tag">Redis</span><span class="job-tag">MQTT</span><span class="job-tag">IoT</span><span class="job-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <div class="job-title">後端工程師</div>
+          <div class="job-company">Synergies Intelligent System Inc.</div>
+          <div class="job-meta">
+            <span class="job-period">Sep 2018 — Aug 2019</span>
+          </div>
+        </div>
+        <div class="job-bullets">
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">參與企業營運分析平台（SyGPS）後端 API 開發與測試，分析企業營運與銷售指標。</div></div>
+          <div class="job-bullet"><div class="jb-dot"></div><div class="jb-text">支援銀行 Robo-Advisor 系統，負責測試、除錯與現場部署。</div></div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">Python</span><span class="job-tag">Flask</span><span class="job-tag">SQLite</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 個人專案 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span class="sh-num">02</span>
+        <h2 class="sh-title">Personal Projects</h2>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-name">Miri 機器人占卜師</div>
+        <div class="proj-desc">獨自設計與開發的線上命理服務，數位化 6 種占卜模式，支援 Google OAuth 帳號登入認證功能。</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Next.js</span><span class="proj-tag">Python</span><span class="proj-tag">Firestore</span><span class="proj-tag">TailwindCSS</span>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-name">線上暗棋</div>
+        <div class="proj-desc">獨自開發的線上象棋暗棋平台，支援單機、雙人及即時連線對戰模式。</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Next.js</span><span class="proj-tag">Firestore</span><span class="proj-tag">TailwindCSS</span>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-name">個人網站與作品集</div>
+        <div class="proj-desc">累積 30 萬瀏覽量的個人網站，彙整文章、專案與職涯經歷，並透過 GA、Lighthouse 持續 SEO 優化。</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Next.js</span><span class="proj-tag">TailwindCSS</span><span class="proj-tag">SEO</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
