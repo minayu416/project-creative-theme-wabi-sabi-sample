@@ -1,220 +1,546 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-<meta charset="UTF-8">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,300;0,400;1,300&display=swap');
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --wa:#f5f0e8;--ink:#2a2520;--ink2:#5a5048;--ink3:#9a8e82;
-    --gold:#b8985a;--cool:#7a8fa0;--border:#d4c8b8;
-    --serif-jp:'Shippori Mincho','Noto Serif JP',serif;
-    --serif-en:'DM Serif Display',serif;
-    --sans:'Karla',sans-serif;
-  }
-  body{background:var(--wa);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1;overflow-x:hidden;font-size:13px}
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,300;0,400;1,300&display=swap");
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --wa: #f5f0e8;
+        --ink: #2a2520;
+        --ink2: #5a5048;
+        --ink3: #9a8e82;
+        --gold: #b8985a;
+        --cool: #7a8fa0;
+        --border: #d4c8b8;
+        --serif-jp: "Shippori Mincho", "Noto Serif JP", serif;
+        --serif-en: "DM Serif Display", serif;
+        --sans: "Karla", sans-serif;
+      }
+      body {
+        background: var(--wa);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-weight: 300;
+        line-height: 1;
+        overflow-x: hidden;
+        font-size: 13px;
+      }
 
-  /* ── INTRO ── */
-  .intro{
-    display:grid;
-    grid-template-columns:1fr 40px 1fr;
-    border-bottom:0.5px solid var(--border);
-    min-height:520px;
-  }
-  .intro-left{
-    padding:64px 48px 64px 56px;
-    border-right:0.5px solid var(--border);
-    display:flex;flex-direction:column;justify-content:center;gap:20px;
-  }
-  .eyebrow{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
-  .left-heading{font-family:var(--serif-en);font-size:36px;font-style:italic;color:var(--ink);line-height:1.05}
-  .left-heading span{font-size:22px;color:var(--ink3)}
-  .left-body{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2.1;letter-spacing:0.04em}
-  .left-accent{font-family:var(--serif-jp);font-size:11px;color:var(--gold);letter-spacing:0.12em;display:flex;align-items:center;gap:10px}
-  .left-accent::before{content:'';width:16px;height:0.5px;background:var(--gold)}
+      /* ── INTRO ── */
+      .intro {
+        display: grid;
+        grid-template-columns: 1fr 40px 1fr;
+        border-bottom: 0.5px solid var(--border);
+        min-height: 520px;
+      }
+      .intro-left {
+        padding: 64px 48px 64px 56px;
+        border-right: 0.5px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+      }
+      .eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-family: var(--sans);
+      }
+      .left-heading {
+        font-family: var(--serif-en);
+        font-size: 36px;
+        font-style: italic;
+        color: var(--ink);
+        line-height: 1.05;
+      }
+      .left-heading span {
+        font-size: 22px;
+        color: var(--ink3);
+      }
+      .left-body {
+        font-family: var(--serif-jp);
+        font-size: 13px;
+        color: var(--ink2);
+        line-height: 2.1;
+        letter-spacing: 0.04em;
+      }
+      .left-accent {
+        font-family: var(--serif-jp);
+        font-size: 11px;
+        color: var(--gold);
+        letter-spacing: 0.12em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .left-accent::before {
+        content: "";
+        width: 16px;
+        height: 0.5px;
+        background: var(--gold);
+      }
 
-  .spine{
-    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    overflow:hidden;border-right:0.5px solid var(--border);
-  }
-  .spine::before,.spine::after{content:'';position:absolute;left:0;right:0;height:48px;z-index:3;pointer-events:none}
-  .spine::before{top:0;background:linear-gradient(to bottom,var(--wa),transparent)}
-  .spine::after{bottom:0;background:linear-gradient(to top,var(--wa),transparent)}
-  .spine-word{writing-mode:vertical-rl;font-family:var(--serif-jp);font-size:10px;letter-spacing:0.32em;line-height:40px;white-space:nowrap;user-select:none;position:relative;z-index:1}
-  .w-warm{color:rgba(184,152,90,0.7)}
-  .w-cool{color:rgba(122,143,160,0.6)}
-  .spine-dot{width:3px;height:3px;border-radius:50%;background:var(--border);margin:3px 0;position:relative;z-index:1}
+      .spine {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-right: 0.5px solid var(--border);
+      }
+      .spine::before,
+      .spine::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 48px;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .spine::before {
+        top: 0;
+        background: linear-gradient(to bottom, var(--wa), transparent);
+      }
+      .spine::after {
+        bottom: 0;
+        background: linear-gradient(to top, var(--wa), transparent);
+      }
+      .spine-word {
+        writing-mode: vertical-rl;
+        font-family: var(--serif-jp);
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        line-height: 40px;
+        white-space: nowrap;
+        user-select: none;
+        position: relative;
+        z-index: 1;
+      }
+      .w-warm {
+        color: rgba(184, 152, 90, 0.7);
+      }
+      .w-cool {
+        color: rgba(122, 143, 160, 0.6);
+      }
+      .spine-dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--border);
+        margin: 3px 0;
+        position: relative;
+        z-index: 1;
+      }
 
-  .intro-right{padding:64px 52px 64px 44px;display:flex;flex-direction:column;justify-content:center}
-  .right-heading{font-family:var(--serif-en);font-size:18px;font-style:italic;color:var(--ink3);margin-bottom:24px;line-height:1.3}
-  .traits{display:flex;flex-direction:column}
-  .trait{display:grid;grid-template-columns:72px 1fr;gap:0 14px;padding:11px 0;border-bottom:0.5px solid var(--border);align-items:baseline}
-  .trait:first-child{border-top:0.5px solid var(--border)}
-  .trait-key{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);padding-top:2px}
-  .trait-val{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:1.7;letter-spacing:0.03em}
+      .intro-right {
+        padding: 64px 52px 64px 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .right-heading {
+        font-family: var(--serif-en);
+        font-size: 18px;
+        font-style: italic;
+        color: var(--ink3);
+        margin-bottom: 24px;
+        line-height: 1.3;
+      }
+      .traits {
+        display: flex;
+        flex-direction: column;
+      }
+      .trait {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 0 14px;
+        padding: 11px 0;
+        border-bottom: 0.5px solid var(--border);
+        align-items: baseline;
+      }
+      .trait:first-child {
+        border-top: 0.5px solid var(--border);
+      }
+      .trait-key {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-family: var(--sans);
+        padding-top: 2px;
+      }
+      .trait-val {
+        font-family: var(--serif-jp);
+        font-size: 12px;
+        color: var(--ink2);
+        line-height: 1.7;
+        letter-spacing: 0.03em;
+      }
 
-  /* ── SECTION BASE ── */
-  .section{border-bottom:0.5px solid var(--border);padding:72px 56px}
-  .sec-label{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);margin-bottom:32px;display:flex;align-items:center;gap:16px}
-  .sec-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+      /* ── SECTION BASE ── */
+      .section {
+        border-bottom: 0.5px solid var(--border);
+        padding: 72px 56px;
+      }
+      .sec-label {
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-family: var(--sans);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .sec-label::after {
+        content: "";
+        flex: 1;
+        height: 0.5px;
+        background: var(--border);
+      }
 
-  /* ── SECTION 2: 生活理念 ── */
-  .philosophy{
-    display:grid;grid-template-columns:1fr 1fr;gap:0 64px;align-items:start;
-  }
-  .phil-heading{font-family:var(--serif-en);font-size:28px;font-style:italic;color:var(--ink);line-height:1.1;margin-bottom:20px}
-  .phil-sub{font-family:var(--serif-jp);font-size:11px;color:var(--gold);letter-spacing:0.16em;margin-bottom:28px;display:flex;align-items:center;gap:10px}
-  .phil-sub::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-  .phil-body{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2.2;letter-spacing:0.04em}
-  .phil-concepts{display:flex;flex-direction:column;gap:0;border-left:0.5px solid var(--border);padding-left:40px}
-  .concept{padding:18px 0;border-bottom:0.5px solid var(--border)}
-  .concept:first-child{border-top:0.5px solid var(--border)}
-  .concept-jp{font-family:var(--serif-jp);font-size:16px;color:var(--ink);letter-spacing:0.08em;margin-bottom:6px}
-  .concept-en{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans);margin-bottom:8px}
-  .concept-desc{font-family:var(--serif-jp);font-size:11.5px;color:var(--ink2);line-height:1.9;letter-spacing:0.03em}
+      /* ── SECTION 2: 生活理念 ── */
+      .philosophy {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 64px;
+        align-items: start;
+      }
+      .phil-heading {
+        font-family: var(--serif-en);
+        font-size: 28px;
+        font-style: italic;
+        color: var(--ink);
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+      .phil-sub {
+        font-family: var(--serif-jp);
+        font-size: 11px;
+        color: var(--gold);
+        letter-spacing: 0.16em;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .phil-sub::before {
+        content: "";
+        width: 14px;
+        height: 0.5px;
+        background: var(--gold);
+      }
+      .phil-body {
+        font-family: var(--serif-jp);
+        font-size: 13px;
+        color: var(--ink2);
+        line-height: 2.2;
+        letter-spacing: 0.04em;
+      }
+      .phil-concepts {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border-left: 0.5px solid var(--border);
+        padding-left: 40px;
+      }
+      .concept {
+        padding: 18px 0;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .concept:first-child {
+        border-top: 0.5px solid var(--border);
+      }
+      .concept-jp {
+        font-family: var(--serif-jp);
+        font-size: 16px;
+        color: var(--ink);
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+      }
+      .concept-en {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink3);
+        font-family: var(--sans);
+        margin-bottom: 8px;
+      }
+      .concept-desc {
+        font-family: var(--serif-jp);
+        font-size: 11.5px;
+        color: var(--ink2);
+        line-height: 1.9;
+        letter-spacing: 0.03em;
+      }
 
-  /* ── SECTION 3: 創作理念 ── */
-  .creation-inner{max-width:600px;margin:0 auto;text-align:center}
-  .creation-quote{font-family:var(--serif-jp);font-size:14px;color:var(--ink2);line-height:2.3;letter-spacing:0.06em;margin-bottom:36px}
-  .creation-body{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);line-height:2.2;letter-spacing:0.04em;text-align:left;margin-bottom:24px}
-  .creation-sig{font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--ink3);text-align:right;letter-spacing:0.04em}
+      /* ── SECTION 3: 創作理念 ── */
+      .creation-inner {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .creation-quote {
+        font-family: var(--serif-jp);
+        font-size: 14px;
+        color: var(--ink2);
+        line-height: 2.3;
+        letter-spacing: 0.06em;
+        margin-bottom: 36px;
+      }
+      .creation-body {
+        font-family: var(--serif-jp);
+        font-size: 13px;
+        color: var(--ink2);
+        line-height: 2.2;
+        letter-spacing: 0.04em;
+        text-align: left;
+        margin-bottom: 24px;
+      }
+      .creation-sig {
+        font-family: var(--serif-en);
+        font-size: 13px;
+        font-style: italic;
+        color: var(--ink3);
+        text-align: right;
+        letter-spacing: 0.04em;
+      }
 
-  /* ── SECTION 4: 網站歷史 ── */
-  .timeline{display:flex;flex-direction:column;gap:0;max-width:640px}
-  .tl-item{display:grid;grid-template-columns:96px 1fr;gap:0 36px;padding:28px 0;border-bottom:0.5px solid var(--border);align-items:start}
-  .tl-item:first-child{border-top:0.5px solid var(--border)}
-  .tl-year{font-family:var(--serif-en);font-size:14px;font-style:italic;color:var(--gold);line-height:1.4;padding-top:3px;letter-spacing:0.02em}
-  .tl-content{}
-  .tl-title{font-family:var(--serif-jp);font-size:13px;color:var(--ink);letter-spacing:0.06em;margin-bottom:8px;line-height:1.5}
-  .tl-desc{font-family:var(--serif-jp);font-size:12px;color:var(--ink2);line-height:2;letter-spacing:0.03em}
-</style>
-</head>
-<body>
+      /* ── SECTION 4: 網站歷史 ── */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        max-width: 640px;
+      }
+      .tl-item {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 0 36px;
+        padding: 28px 0;
+        border-bottom: 0.5px solid var(--border);
+        align-items: start;
+      }
+      .tl-item:first-child {
+        border-top: 0.5px solid var(--border);
+      }
+      .tl-year {
+        font-family: var(--serif-en);
+        font-size: 14px;
+        font-style: italic;
+        color: var(--gold);
+        line-height: 1.4;
+        padding-top: 3px;
+        letter-spacing: 0.02em;
+      }
+      .tl-content {
+      }
+      .tl-title {
+        font-family: var(--serif-jp);
+        font-size: 13px;
+        color: var(--ink);
+        letter-spacing: 0.06em;
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+      .tl-desc {
+        font-family: var(--serif-jp);
+        font-size: 12px;
+        color: var(--ink2);
+        line-height: 2;
+        letter-spacing: 0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ① Just Mina -->
+    <div class="intro">
+      <div class="intro-left">
+        <div class="eyebrow">About · 關於我</div>
+        <div class="left-heading">
+          Just Mina,<br />
+          <span>nothing more<br />to define.</span>
+        </div>
+        <div class="left-body">
+          我是Mina，一個 ENTP 的奇幻女子。全端軟體工程師，後端 4 年、前端 2
+          年，75% 成熟度，仍在修煉中。
+        </div>
+        <div class="left-body">
+          充滿奇葩幻想，隨手捻來 Idea 跟
+          Solution。活潑、愛挑戰、認真。冷靜、理性、邏輯化。喜歡以純真、簡單的角度面對世界。
+        </div>
+        <div class="left-accent">以上全部都是我。</div>
+      </div>
 
-<!-- ① Just Mina -->
-<div class="intro">
-  <div class="intro-left">
-    <div class="eyebrow">About · 關於我</div>
-    <div class="left-heading">
-      Just Mina,<br>
-      <span>nothing more<br>to define.</span>
-    </div>
-    <div class="left-body">
-      我是Mina，一個 ENTP 的奇幻女子。全端軟體工程師，後端 4 年、前端 2 年，75% 成熟度，仍在修煉中。
-    </div>
-    <div class="left-body">
-      充滿奇葩幻想，隨手捻來 Idea 跟 Solution。活潑、愛挑戰、認真。冷靜、理性、邏輯化。喜歡以純真、簡單的角度面對世界。
-    </div>
-    <div class="left-accent">以上全部都是我。</div>
-  </div>
+      <div class="spine">
+        <span class="spine-word w-warm">活潑</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-cool">理性</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-warm">浪漫</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-cool">策略</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-warm">感性</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-cool">邏輯</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-warm">純真</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-cool">冷靜</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-warm">創意</span>
+        <div class="spine-dot"></div>
+        <span class="spine-word w-cool">認真</span>
+      </div>
 
-  <div class="spine">
-    <span class="spine-word w-warm">活潑</span><div class="spine-dot"></div>
-    <span class="spine-word w-cool">理性</span><div class="spine-dot"></div>
-    <span class="spine-word w-warm">浪漫</span><div class="spine-dot"></div>
-    <span class="spine-word w-cool">策略</span><div class="spine-dot"></div>
-    <span class="spine-word w-warm">感性</span><div class="spine-dot"></div>
-    <span class="spine-word w-cool">邏輯</span><div class="spine-dot"></div>
-    <span class="spine-word w-warm">純真</span><div class="spine-dot"></div>
-    <span class="spine-word w-cool">冷靜</span><div class="spine-dot"></div>
-    <span class="spine-word w-warm">創意</span><div class="spine-dot"></div>
-    <span class="spine-word w-cool">認真</span>
-  </div>
-
-  <div class="intro-right">
-    <div class="right-heading">在這裡<br>認識我</div>
-    <div class="traits">
-      <div class="trait"><span class="trait-key">Profession</span><span class="trait-val">全端軟體工程師<br>後端 4 年・前端 2 年</span></div>
-      <div class="trait"><span class="trait-key">MBTI</span><span class="trait-val">ENTP · 辯論家</span></div>
-      <div class="trait"><span class="trait-key">星座</span><span class="trait-val">月亮水瓶座</span></div>
-      <div class="trait"><span class="trait-key">Languages</span><span class="trait-val">中文 · English · 日本語<br>西文 · 俄文 · 德文（學習中）</span></div>
-      <div class="trait"><span class="trait-key">Interests</span><span class="trait-val">旅行 · 命理 · 閱讀<br>軟體創作 · 研究男友</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ② 生活理念 -->
-<div class="section">
-  <div class="sec-label">生活理念 · Philosophy</div>
-  <div class="philosophy">
-    <div>
-      <div class="phil-heading">莊子 × Wabi-Sabi</div>
-      <div class="phil-sub">侘寂の美</div>
-      <div class="phil-body">
-        崇尚莊子「有趣的靈魂」、「求自由的精神」與「超越功利的境界」——活出自我，不被框架束縛，不攀比，不浪費時間順從他人的「標準」，專注在事物的本質與初衷。<br><br>
-        侘寂（Wabi-Sabi）源自日本禪宗，以簡素、自然、靜寂為美。套用於設計與生活：去除不必要的裝飾，讓結構自然浮現；接受不完美與差異，反而讓生命呈現更真實的樣貌。
+      <div class="intro-right">
+        <div class="right-heading">在這裡<br />認識我</div>
+        <div class="traits">
+          <div class="trait">
+            <span class="trait-key">Profession</span
+            ><span class="trait-val"
+              >全端軟體工程師<br />後端 4 年・前端 2 年</span
+            >
+          </div>
+          <div class="trait">
+            <span class="trait-key">MBTI</span
+            ><span class="trait-val">ENTP · 辯論家</span>
+          </div>
+          <div class="trait">
+            <span class="trait-key">星座</span
+            ><span class="trait-val">月亮水瓶座</span>
+          </div>
+          <div class="trait">
+            <span class="trait-key">Languages</span
+            ><span class="trait-val"
+              >中文 · English · 日本語<br />西文 · 俄文 · 德文（學習中）</span
+            >
+          </div>
+          <div class="trait">
+            <span class="trait-key">Interests</span
+            ><span class="trait-val"
+              >旅行 · 命理 · 閱讀<br />軟體創作 · 研究男友</span
+            >
+          </div>
+        </div>
       </div>
     </div>
-    <div class="phil-concepts">
-      <div class="concept">
-        <div class="concept-jp">簡素・渋い</div>
-        <div class="concept-en">Simplicity · Astringency</div>
-        <div class="concept-desc">去除雜音，讓本質自然浮現。不需要華麗的裝飾來掩蓋你真實的氣質。</div>
-      </div>
-      <div class="concept">
-        <div class="concept-jp">不均斉・自然</div>
-        <div class="concept-en">Asymmetry · Nature</div>
-        <div class="concept-desc">大自然從不完美對稱，人也是如此。接受自己的差異，反而更真實。</div>
-      </div>
-      <div class="concept">
-        <div class="concept-jp">幽玄・靜寂</div>
-        <div class="concept-en">Subtlety · Stillness</div>
-        <div class="concept-desc">在快速與繁雜之中保有內心的寧靜，回到自身。</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ③ 創作理念 -->
-<div class="section">
-  <div class="sec-label">創作理念 · Creative Vision</div>
-  <div class="creation-inner">
-    <div class="creation-quote">
-      每個人都是獨一無二的個體。<br>在走過的歲月裡，我們形成自己的思想、觀念與經驗——<br>那些都是真實屬於自己的東西。
+    <!-- ② 生活理念 -->
+    <div class="section">
+      <div class="sec-label">生活理念 · Philosophy</div>
+      <div class="philosophy">
+        <div>
+          <div class="phil-heading">莊子 × Wabi-Sabi</div>
+          <div class="phil-sub">侘寂の美</div>
+          <div class="phil-body">
+            崇尚莊子「有趣的靈魂」、「求自由的精神」與「超越功利的境界」——活出自我，不被框架束縛，不攀比，不浪費時間順從他人的「標準」，專注在事物的本質與初衷。<br /><br />
+            侘寂（Wabi-Sabi）源自日本禪宗，以簡素、自然、靜寂為美。套用於設計與生活：去除不必要的裝飾，讓結構自然浮現；接受不完美與差異，反而讓生命呈現更真實的樣貌。
+          </div>
+        </div>
+        <div class="phil-concepts">
+          <div class="concept">
+            <div class="concept-jp">簡素・渋い</div>
+            <div class="concept-en">Simplicity · Astringency</div>
+            <div class="concept-desc">
+              去除雜音，讓本質自然浮現。不需要華麗的裝飾來掩蓋你真實的氣質。
+            </div>
+          </div>
+          <div class="concept">
+            <div class="concept-jp">不均斉・自然</div>
+            <div class="concept-en">Asymmetry · Nature</div>
+            <div class="concept-desc">
+              大自然從不完美對稱，人也是如此。接受自己的差異，反而更真實。
+            </div>
+          </div>
+          <div class="concept">
+            <div class="concept-jp">幽玄・靜寂</div>
+            <div class="concept-en">Subtlety · Stillness</div>
+            <div class="concept-desc">
+              在快速與繁雜之中保有內心的寧靜，回到自身。
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="creation-body">
-      從小成長在充滿比較與高期待的環境，不管怎麼努力去迎合他人的標準，總覺得無法達標。後來透過旅行，特別是 2017 年前往美國的企業交流，我看到那裡的人勇於展現個性、鼓勵自由發展。<br><br>
-      那讓我第一次清楚地想到：既然世界上已經有那麼多人按照同樣方式過日子，那我的人生能不能走出別種可能？<br><br>
-      這個網站，是我給自己的提醒：去探索未知，信任自己，走出獨一無二的人生。也是給你的邀請——如果你也正在找回自己的形狀。
-    </div>
-    <div class="creation-sig">— Mina Yu, Moon Aqua @Mina</div>
-  </div>
-</div>
 
-<!-- ④ 網站歷史 -->
-<div class="section" style="border-bottom:none">
-  <div class="sec-label">網站歷程 · Website History</div>
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-year">2026<br>— now</div>
-      <div class="tl-content">
-        <div class="tl-title">月水瓶 @Mina · Wabi-Sabi 新主題</div>
-        <div class="tl-desc">意識到過往累積的心理議題，獲得嶄新的生活理念，重新設計視覺風格，加入 Wabi-Sabi 日式美學語言，開啟嶄新的未來。</div>
+    <!-- ③ 創作理念 -->
+    <div class="section">
+      <div class="sec-label">創作理念 · Creative Vision</div>
+      <div class="creation-inner">
+        <div class="creation-quote">
+          每個人都是獨一無二的個體。<br />在走過的歲月裡，我們形成自己的思想、觀念與經驗——<br />那些都是真實屬於自己的東西。
+        </div>
+        <div class="creation-body">
+          從小成長在充滿比較與高期待的環境，不管怎麼努力去迎合他人的標準，總覺得無法達標。後來透過旅行，特別是
+          2017
+          年前往美國的企業交流，我看到那裡的人勇於展現個性、鼓勵自由發展。<br /><br />
+          那讓我第一次清楚地想到：既然世界上已經有那麼多人按照同樣方式過日子，那我的人生能不能走出別種可能？<br /><br />
+          這個網站，是我給自己的提醒：去探索未知，信任自己，走出獨一無二的人生。也是給你的邀請——如果你也正在找回自己的形狀。
+        </div>
+        <div class="creation-sig">— Mina Yu, Moon Aqua @Mina</div>
       </div>
     </div>
-    <div class="tl-item">
-      <div class="tl-year">2022<br>— 2026</div>
-      <div class="tl-content">
-        <div class="tl-title">月水瓶 @Mina · Next.js 版</div>
-        <div class="tl-desc">從後端工程師起點，第一次從 0 自學前端，用 Hugo → Next.js 開發，所有 UI 設計與開發一手包辦。取名「實驗室」，勇敢試驗與他人不同的人生抉擇。</div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-year">2019<br>— 2022</div>
-      <div class="tl-content">
-        <div class="tl-title">月水瓶 @MINA · Hugo 版</div>
-        <div class="tl-desc">研究所畢業後找到第一份後端工程師工作，使用 Hugo 架設網站，記錄著 20 多歲在茫然與挫敗中仍不斷嘗試的日子。</div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-year">2015<br>— 2019</div>
-      <div class="tl-content">
-        <div class="tl-title">Ameba · FC2 · Blogger · WordPress</div>
-        <div class="tl-desc">高中迷上部落格，輾轉使用各種平台，邊寫邊找自己的聲音。最終以 WordPress 創立初始網站，取名 @Mina's Life Travel。</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-</body>
+    <!-- ④ 網站歷史 -->
+    <div class="section" style="border-bottom: none">
+      <div class="sec-label">網站歷程 · Website History</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2026<br />— now</div>
+          <div class="tl-content">
+            <div class="tl-title">月水瓶 @Mina · Wabi-Sabi 新主題</div>
+            <div class="tl-desc">
+              意識到過往累積的心理議題，獲得嶄新的生活理念，重新設計視覺風格，加入
+              Wabi-Sabi 日式美學語言，開啟嶄新的未來。
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022<br />— 2026</div>
+          <div class="tl-content">
+            <div class="tl-title">月水瓶 @Mina · Next.js 版</div>
+            <div class="tl-desc">
+              從後端工程師起點，第一次從 0 自學前端，用 Hugo → Next.js
+              開發，所有 UI
+              設計與開發一手包辦。取名「實驗室」，勇敢試驗與他人不同的人生抉擇。
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2019<br />— 2022</div>
+          <div class="tl-content">
+            <div class="tl-title">月水瓶 @MINA · Hugo 版</div>
+            <div class="tl-desc">
+              研究所畢業後找到第一份後端工程師工作，使用 Hugo 架設網站，記錄著
+              20 多歲在茫然與挫敗中仍不斷嘗試的日子。
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2015<br />— 2019</div>
+          <div class="tl-content">
+            <div class="tl-title">Ameba · FC2 · Blogger · WordPress</div>
+            <div class="tl-desc">
+              高中迷上部落格，輾轉使用各種平台，邊寫邊找自己的聲音。最終以
+              WordPress 創立初始網站，取名 @Mina's Life Travel。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
