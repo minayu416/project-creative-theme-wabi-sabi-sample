@@ -1,118 +1,588 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400&display=swap');
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{--wa:#f5f0e8;--ink:#2a2520;--ink2:#5a5048;--ink3:#9a8e82;--gold:#b8985a;--border:#d4c8b8;--serif-jp:'Shippori Mincho',serif;--serif-en:'DM Serif Display',serif;--sans:'Karla',sans-serif;}
-  body{background:var(--wa);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1;overflow-x:hidden}
+  @import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400&display=swap");
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  :root {
+    --wa: #f5f0e8;
+    --ink: #2a2520;
+    --ink2: #5a5048;
+    --ink3: #9a8e82;
+    --gold: #b8985a;
+    --border: #d4c8b8;
+    --serif-jp: "Shippori Mincho", serif;
+    --serif-en: "DM Serif Display", serif;
+    --sans: "Karla", sans-serif;
+  }
+  body {
+    background: var(--wa);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1;
+    overflow-x: hidden;
+  }
 
   /* NAV */
-  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 48px 18px;border-bottom:0.5px solid var(--border);background:var(--wa)}
-  .nav-logo{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);letter-spacing:0.12em;display:flex;align-items:center;gap:10px}
-  .nav-logo::before{content:'';display:inline-block;width:20px;height:0.5px;background:var(--gold)}
-  .nav-links{display:flex;gap:32px;list-style:none}
-  .nav-links a{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:400;font-family:var(--sans);transition:color .2s}
-  .nav-links a.active{color:var(--gold)}
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px 18px;
+    border-bottom: 0.5px solid var(--border);
+    background: var(--wa);
+  }
+  .nav-logo {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 0.5px;
+    background: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    text-decoration: none;
+    font-weight: 400;
+    font-family: var(--sans);
+    transition: color 0.2s;
+  }
+  .nav-links a.active {
+    color: var(--gold);
+  }
 
   /* PAGE HEADER */
-  .page-header{padding:48px 64px 36px;border-bottom:0.5px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between}
-  .page-eyebrow{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);margin-bottom:12px}
-  .page-title{font-family:var(--serif-en);font-size:48px;font-style:italic;color:var(--ink);line-height:1}
-  .page-subtitle{font-family:var(--serif-jp);font-size:13px;color:var(--ink3);line-height:2;letter-spacing:0.06em;max-width:340px;text-align:right}
+  .page-header {
+    padding: 48px 64px 36px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .page-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: var(--sans);
+    margin-bottom: 12px;
+  }
+  .page-title {
+    font-family: var(--serif-en);
+    font-size: 48px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .page-subtitle {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink3);
+    line-height: 2;
+    letter-spacing: 0.06em;
+    max-width: 340px;
+    text-align: right;
+  }
 
   /* EDITOR'S PICK */
-  .picks-section{padding:32px 64px;border-bottom:0.5px solid var(--border)}
-  .picks-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px}
-  .picks-label{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans)}
-  .picks-note{font-size:11px;color:var(--ink3);font-family:var(--serif-jp);letter-spacing:0.04em}
-  .picks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-  .pick-card{background:var(--wa);cursor:pointer;transition:background .22s;overflow:hidden}
-  .pick-card:hover{background:#ede8df}
-  .pick-img{height:130px;position:relative;overflow:hidden}
-  .pi-1{background:linear-gradient(145deg,#c4b8d0,#9080a8)}
-  .pi-2{background:linear-gradient(145deg,#b0c4d0,#708090)}
-  .pi-3{background:linear-gradient(145deg,#d0b8a8,#a08878)}
-  .pick-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,37,32,0.45),transparent)}
-  .pick-img-cat{position:absolute;bottom:11px;left:13px;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--sans);color:rgba(255,255,255,0.8)}
-  .pick-body{padding:14px 16px 18px}
-  .pick-title{font-family:var(--serif-jp);font-size:13px;color:var(--ink);line-height:1.7;letter-spacing:0.04em;margin-bottom:7px}
-  .pick-date{font-size:9px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.1em}
+  .picks-section {
+    padding: 32px 64px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .picks-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .picks-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-family: var(--sans);
+  }
+  .picks-note {
+    font-size: 11px;
+    color: var(--ink3);
+    font-family: var(--serif-jp);
+    letter-spacing: 0.04em;
+  }
+  .picks-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .pick-card {
+    background: var(--wa);
+    cursor: pointer;
+    transition: background 0.22s;
+    overflow: hidden;
+  }
+  .pick-card:hover {
+    background: #ede8df;
+  }
+  .pick-img {
+    height: 130px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pi-1 {
+    background: linear-gradient(145deg, #c4b8d0, #9080a8);
+  }
+  .pi-2 {
+    background: linear-gradient(145deg, #b0c4d0, #708090);
+  }
+  .pi-3 {
+    background: linear-gradient(145deg, #d0b8a8, #a08878);
+  }
+  .pick-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(42, 37, 32, 0.45), transparent);
+  }
+  .pick-img-cat {
+    position: absolute;
+    bottom: 11px;
+    left: 13px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .pick-body {
+    padding: 14px 16px 18px;
+  }
+  .pick-title {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    margin-bottom: 7px;
+  }
+  .pick-date {
+    font-size: 9px;
+    color: var(--ink3);
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+  }
 
   /* MAIN LAYOUT */
-  .main{display:grid;grid-template-columns:1fr 300px;align-items:start}
-  .articles{border-right:0.5px solid var(--border)}
-  .art-list{display:flex;flex-direction:column}
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+  .articles {
+    border-right: 0.5px solid var(--border);
+  }
+  .art-list {
+    display: flex;
+    flex-direction: column;
+  }
 
   /* 有圖文章 */
-  .art-img{display:grid;grid-template-columns:120px 1fr;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background .2s;overflow:hidden}
-  .art-img:hover{background:#f0ebe1}
-  .art-thumb{position:relative;overflow:hidden}
-  .at-1{background:linear-gradient(145deg,#c4b8d0,#9080a8)}
-  .at-2{background:linear-gradient(145deg,#b0c8c0,#7090a0)}
-  .at-3{background:linear-gradient(145deg,#c8b8a0,#907860)}
-  .at-4{background:linear-gradient(145deg,#d0b8a8,#a08878)}
-  .art-thumb-ov{position:absolute;inset:0;background:rgba(42,37,32,0.06)}
-  .art-img .art-content{padding:20px 22px 20px 18px;display:flex;flex-direction:column;justify-content:center;gap:7px;border-left:0.5px solid var(--border)}
+  .art-img {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+    overflow: hidden;
+  }
+  .art-img:hover {
+    background: #f0ebe1;
+  }
+  .art-thumb {
+    position: relative;
+    overflow: hidden;
+  }
+  .at-1 {
+    background: linear-gradient(145deg, #c4b8d0, #9080a8);
+  }
+  .at-2 {
+    background: linear-gradient(145deg, #b0c8c0, #7090a0);
+  }
+  .at-3 {
+    background: linear-gradient(145deg, #c8b8a0, #907860);
+  }
+  .at-4 {
+    background: linear-gradient(145deg, #d0b8a8, #a08878);
+  }
+  .art-thumb-ov {
+    position: absolute;
+    inset: 0;
+    background: rgba(42, 37, 32, 0.06);
+  }
+  .art-img .art-content {
+    padding: 20px 22px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    border-left: 0.5px solid var(--border);
+  }
 
   /* 無圖文章 */
-  .art-row{display:grid;grid-template-columns:64px 1fr;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background .2s}
-  .art-row:hover{background:#f0ebe1}
-  .art-date{border-right:0.5px solid var(--border);padding:20px 12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px}
-  .art-day{font-family:var(--serif-en);font-size:18px;font-style:italic;color:var(--ink);display:block;line-height:1}
-  .art-mon{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink3);font-family:var(--sans);display:block;margin-top:3px}
-  .art-yr{font-size:8px;color:var(--border);font-family:var(--sans);display:block;margin-top:1px}
-  .art-content{padding:17px 20px 17px 16px;display:flex;flex-direction:column;justify-content:center;gap:6px}
-  .art-cat{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-family:var(--sans)}
-  .art-title{font-family:var(--serif-jp);font-size:13px;color:var(--ink);line-height:1.7;letter-spacing:0.04em}
-  .art-arr{font-size:10px;color:var(--border);margin-top:2px;transition:color .2s}
-  .art-img:hover .art-arr,.art-row:hover .art-arr{color:var(--gold)}
-  .art-date-sm{font-size:9px;color:var(--ink3);font-family:var(--sans);letter-spacing:0.1em}
+  .art-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .art-row:hover {
+    background: #f0ebe1;
+  }
+  .art-date {
+    border-right: 0.5px solid var(--border);
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+  }
+  .art-day {
+    font-family: var(--serif-en);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+  .art-mon {
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-family: var(--sans);
+    display: block;
+    margin-top: 3px;
+  }
+  .art-yr {
+    font-size: 8px;
+    color: var(--border);
+    font-family: var(--sans);
+    display: block;
+    margin-top: 1px;
+  }
+  .art-content {
+    padding: 17px 20px 17px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .art-cat {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: var(--sans);
+  }
+  .art-title {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+  .art-arr {
+    font-size: 10px;
+    color: var(--border);
+    margin-top: 2px;
+    transition: color 0.2s;
+  }
+  .art-img:hover .art-arr,
+  .art-row:hover .art-arr {
+    color: var(--gold);
+  }
+  .art-date-sm {
+    font-size: 9px;
+    color: var(--ink3);
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+  }
 
   /* 橫幅廣告 */
-  .art-ad{padding:16px 20px;border-bottom:0.5px solid var(--border);background:#f8f4ee}
-  .art-ad-lbl{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--border);font-family:var(--sans);margin-bottom:7px}
-  .art-ad-box{height:78px;background:#ece7de;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center}
-  .art-ad-note{font-size:9px;letter-spacing:0.1em;color:var(--ink3)}
+  .art-ad {
+    padding: 16px 20px;
+    border-bottom: 0.5px solid var(--border);
+    background: #f8f4ee;
+  }
+  .art-ad-lbl {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--border);
+    font-family: var(--sans);
+    margin-bottom: 7px;
+  }
+  .art-ad-box {
+    height: 78px;
+    background: #ece7de;
+    border: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .art-ad-note {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+  }
 
   /* PAGINATION */
-  .pagination{padding:22px 64px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border);border-right:0.5px solid var(--border)}
-  .pg-nav{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--sans);color:var(--gold);text-decoration:none;transition:opacity .2s}
-  .pg-nav:hover{opacity:.65}
-  .pg-num{font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--ink3)}
+  .pagination {
+    padding: 22px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+  }
+  .pg-nav {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    color: var(--gold);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .pg-nav:hover {
+    opacity: 0.65;
+  }
+  .pg-num {
+    font-family: var(--serif-en);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink3);
+  }
 
   /* SIDEBAR */
-  .sidebar{padding:36px 28px 40px 32px;display:flex;flex-direction:column;gap:32px}
-  .sb-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:10px;font-family:var(--sans)}
-  .sb-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
-  .ads-box{background:#ece7de;border:0.5px solid var(--border);height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
-  .ads-box-sm{background:#ece7de;border:0.5px solid var(--border);height:150px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
-  .ads-note{font-size:10px;letter-spacing:0.12em;color:var(--ink3)}
-  .author-card{border:0.5px solid var(--border);padding:18px}
-  .author-av{width:44px;height:44px;border-radius:50%;background:var(--border);margin-bottom:10px}
-  .author-name{font-family:var(--serif-jp);font-size:13px;color:var(--ink);margin-bottom:5px}
-  .author-bio{font-size:11px;color:var(--ink3);line-height:1.7;font-family:var(--sans)}
+  .sidebar {
+    padding: 36px 28px 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .sb-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+  }
+  .sb-label::after {
+    content: "";
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+  .ads-box {
+    background: #ece7de;
+    border: 0.5px solid var(--border);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ads-box-sm {
+    background: #ece7de;
+    border: 0.5px solid var(--border);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ads-note {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink3);
+  }
+  .author-card {
+    border: 0.5px solid var(--border);
+    padding: 18px;
+  }
+  .author-av {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-bottom: 10px;
+  }
+  .author-name {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .author-bio {
+    font-size: 11px;
+    color: var(--ink3);
+    line-height: 1.7;
+    font-family: var(--sans);
+  }
 
   /* CATEGORY TREE */
-  .cat-tree{display:flex;flex-direction:column}
-  .cat-parent{border-bottom:0.5px solid var(--border)}
-  .cat-parent:first-child{border-top:0.5px solid var(--border)}
-  .cat-parent-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;cursor:pointer;gap:8px;transition:opacity .2s}
-  .cat-parent-row:hover{opacity:.7}
-  .cat-parent-left{display:flex;align-items:center;gap:8px;flex:1}
-  .chevron{font-size:11px;color:var(--border);transition:transform .25s,color .2s;line-height:1;flex-shrink:0}
-  .cat-parent.open .chevron{transform:rotate(90deg);color:var(--gold)}
-  .cat-pname{font-family:var(--serif-jp);font-size:13px;color:var(--ink2);letter-spacing:0.04em}
-  .cat-parent.open .cat-pname{color:var(--ink)}
-  .cat-pcount{font-size:10px;color:var(--border);font-family:var(--sans);flex-shrink:0;transition:color .2s}
-  .cat-parent.open .cat-pcount{color:var(--gold)}
-  .cat-children{max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .25s;opacity:0}
-  .cat-parent.open .cat-children{max-height:280px;opacity:1}
-  .cat-children-inner{padding:4px 0 12px;border-left:0.5px solid var(--border);margin-left:5px;padding-left:16px;display:flex;flex-direction:column}
-  .cat-child{display:flex;align-items:center;justify-content:space-between;padding:7px 0;cursor:pointer;transition:opacity .2s;text-decoration:none}
-  .cat-child:hover{opacity:.65}
-  .cat-cname{font-family:var(--serif-jp);font-size:12px;color:var(--ink3);letter-spacing:0.04em;transition:color .2s}
-  .cat-child:hover .cat-cname{color:var(--ink2)}
-  .cat-ccount{font-size:9px;color:var(--border);font-family:var(--sans);margin-left:8px;flex-shrink:0}
+  .cat-tree {
+    display: flex;
+    flex-direction: column;
+  }
+  .cat-parent {
+    border-bottom: 0.5px solid var(--border);
+  }
+  .cat-parent:first-child {
+    border-top: 0.5px solid var(--border);
+  }
+  .cat-parent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 0;
+    cursor: pointer;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .cat-parent-row:hover {
+    opacity: 0.7;
+  }
+  .cat-parent-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .chevron {
+    font-size: 11px;
+    color: var(--border);
+    transition:
+      transform 0.25s,
+      color 0.2s;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .cat-parent.open .chevron {
+    transform: rotate(90deg);
+    color: var(--gold);
+  }
+  .cat-pname {
+    font-family: var(--serif-jp);
+    font-size: 13px;
+    color: var(--ink2);
+    letter-spacing: 0.04em;
+  }
+  .cat-parent.open .cat-pname {
+    color: var(--ink);
+  }
+  .cat-pcount {
+    font-size: 10px;
+    color: var(--border);
+    font-family: var(--sans);
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .cat-parent.open .cat-pcount {
+    color: var(--gold);
+  }
+  .cat-children {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.25s;
+    opacity: 0;
+  }
+  .cat-parent.open .cat-children {
+    max-height: 280px;
+    opacity: 1;
+  }
+  .cat-children-inner {
+    padding: 4px 0 12px;
+    border-left: 0.5px solid var(--border);
+    margin-left: 5px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .cat-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .cat-child:hover {
+    opacity: 0.65;
+  }
+  .cat-cname {
+    font-family: var(--serif-jp);
+    font-size: 12px;
+    color: var(--ink3);
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .cat-child:hover .cat-cname {
+    color: var(--ink2);
+  }
+  .cat-ccount {
+    font-size: 9px;
+    color: var(--border);
+    font-family: var(--sans);
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
 
-  .wabi-v{position:fixed;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold) 35%,transparent 70%);opacity:.18;pointer-events:none}
+  .wabi-v {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--gold) 35%,
+      transparent 70%
+    );
+    opacity: 0.18;
+    pointer-events: none;
+  }
 </style>
 
 <div class="wabi-v"></div>
@@ -120,11 +590,11 @@
 <nav>
   <div class="nav-logo">月水瓶 &nbsp; Mina Yu</div>
   <ul class="nav-links">
-    <li><a href="#">首頁</a></li>
-    <li><a href="#">關於</a></li>
+    <li><a href="./index">首頁</a></li>
+    <li><a href="./about">關於</a></li>
     <li><a href="#" class="active">部落格</a></li>
-    <li><a href="#">作品集</a></li>
-    <li><a href="#">履歷</a></li>
+    <li><a href="./portfolio">作品集</a></li>
+    <li><a href="./resume">履歷</a></li>
   </ul>
 </nav>
 
@@ -133,7 +603,9 @@
     <div class="page-eyebrow">Blog · 部落格</div>
     <div class="page-title">Writing</div>
   </div>
-  <div class="page-subtitle">有的時候，你無意間遇到的故事，會激發你的靈感，改變你的想法。</div>
+  <div class="page-subtitle">
+    有的時候，你無意間遇到的故事，會激發你的靈感，改變你的想法。
+  </div>
 </div>
 
 <!-- EDITOR'S PICK -->
@@ -144,23 +616,34 @@
   </div>
   <div class="picks-row">
     <div class="pick-card">
-      <div class="pick-img pi-1"><div class="pick-img-overlay"></div><div class="pick-img-cat">MBTI · 日常生活</div></div>
+      <div class="pick-img pi-1">
+        <div class="pick-img-overlay"></div>
+        <div class="pick-img-cat">MBTI · 日常生活</div>
+      </div>
       <div class="pick-body">
         <div class="pick-title">邁向成熟的ENTP之路 — 榮格八維知識深度解析</div>
         <div class="pick-date">Oct 2025</div>
       </div>
     </div>
     <div class="pick-card">
-      <div class="pick-img pi-2"><div class="pick-img-overlay"></div><div class="pick-img-cat">旅行日記 · 冰島</div></div>
+      <div class="pick-img pi-2">
+        <div class="pick-img-overlay"></div>
+        <div class="pick-img-cat">旅行日記 · 冰島</div>
+      </div>
       <div class="pick-body">
         <div class="pick-title">冰島自由行旅記 — 頂著暴風雪前進的那幾天</div>
         <div class="pick-date">Feb 2018</div>
       </div>
     </div>
     <div class="pick-card">
-      <div class="pick-img pi-3"><div class="pick-img-overlay"></div><div class="pick-img-cat">人際關係</div></div>
+      <div class="pick-img pi-3">
+        <div class="pick-img-overlay"></div>
+        <div class="pick-img-cat">人際關係</div>
+      </div>
       <div class="pick-body">
-        <div class="pick-title">焦慮型依戀情人行為及思想分析以及如何改善（附流程圖）</div>
+        <div class="pick-title">
+          焦慮型依戀情人行為及思想分析以及如何改善（附流程圖）
+        </div>
         <div class="pick-date">Aug 2020</div>
       </div>
     </div>
@@ -171,7 +654,6 @@
 <div class="main">
   <div class="articles">
     <div class="art-list">
-
       <div class="art-img">
         <div class="art-thumb at-1"><div class="art-thumb-ov"></div></div>
         <div class="art-content">
@@ -186,23 +668,33 @@
         <div class="art-thumb at-2"><div class="art-thumb-ov"></div></div>
         <div class="art-content">
           <div class="art-cat">軟體開發 · SEO</div>
-          <div class="art-title">從 Hugo 到 Next.js：重構個人網站並保住 30 萬歷史瀏覽的 SEO 成果</div>
+          <div class="art-title">
+            從 Hugo 到 Next.js：重構個人網站並保住 30 萬歷史瀏覽的 SEO 成果
+          </div>
           <div class="art-date-sm">Jun 10, 2025</div>
           <div class="art-arr">→</div>
         </div>
       </div>
 
       <div class="art-row">
-        <div class="art-date"><span class="art-day">30</span><span class="art-mon">Jun</span><span class="art-yr">2024</span></div>
+        <div class="art-date">
+          <span class="art-day">30</span><span class="art-mon">Jun</span
+          ><span class="art-yr">2024</span>
+        </div>
         <div class="art-content">
           <div class="art-cat">前端 · CSS</div>
-          <div class="art-title">前端工程師成長計畫 — CSS Layout 樣式、Flexbox、Grid 佈局</div>
+          <div class="art-title">
+            前端工程師成長計畫 — CSS Layout 樣式、Flexbox、Grid 佈局
+          </div>
           <div class="art-arr">→</div>
         </div>
       </div>
 
       <div class="art-row">
-        <div class="art-date"><span class="art-day">14</span><span class="art-mon">Mar</span><span class="art-yr">2024</span></div>
+        <div class="art-date">
+          <span class="art-day">14</span><span class="art-mon">Mar</span
+          ><span class="art-yr">2024</span>
+        </div>
         <div class="art-content">
           <div class="art-cat">軟體開發 · 前端</div>
           <div class="art-title">前端工程師成長計畫 — 面試篇 General 問題</div>
@@ -212,30 +704,42 @@
 
       <div class="art-ad">
         <div class="art-ad-lbl">贊助</div>
-        <div class="art-ad-box"><span class="art-ad-note">Google Ads · 728 × 90</span></div>
+        <div class="art-ad-box">
+          <span class="art-ad-note">Google Ads · 728 × 90</span>
+        </div>
       </div>
 
       <div class="art-img">
         <div class="art-thumb at-3"><div class="art-thumb-ov"></div></div>
         <div class="art-content">
           <div class="art-cat">命理 · 占卜</div>
-          <div class="art-title">塔羅牌抽到三個騎士是什麼巧合？聖杯、金幣、權杖騎士</div>
+          <div class="art-title">
+            塔羅牌抽到三個騎士是什麼巧合？聖杯、金幣、權杖騎士
+          </div>
           <div class="art-date-sm">Feb 29, 2024</div>
           <div class="art-arr">→</div>
         </div>
       </div>
 
       <div class="art-row">
-        <div class="art-date"><span class="art-day">03</span><span class="art-mon">Dec</span><span class="art-yr">2023</span></div>
+        <div class="art-date">
+          <span class="art-day">03</span><span class="art-mon">Dec</span
+          ><span class="art-yr">2023</span>
+        </div>
         <div class="art-content">
           <div class="art-cat">架構設計</div>
-          <div class="art-title">研究公司產品功能發布流程、設計並提出自動化解決方案</div>
+          <div class="art-title">
+            研究公司產品功能發布流程、設計並提出自動化解決方案
+          </div>
           <div class="art-arr">→</div>
         </div>
       </div>
 
       <div class="art-row">
-        <div class="art-date"><span class="art-day">02</span><span class="art-mon">Dec</span><span class="art-yr">2023</span></div>
+        <div class="art-date">
+          <span class="art-day">02</span><span class="art-mon">Dec</span
+          ><span class="art-yr">2023</span>
+        </div>
         <div class="art-content">
           <div class="art-cat">寺廟與佛</div>
           <div class="art-title">一則龍山寺關聖帝君的求籤故事</div>
@@ -247,25 +751,29 @@
         <div class="art-thumb at-4"><div class="art-thumb-ov"></div></div>
         <div class="art-content">
           <div class="art-cat">人際關係</div>
-          <div class="art-title">焦慮型依戀情人行為及思想分析以及如何改善（附流程圖）</div>
+          <div class="art-title">
+            焦慮型依戀情人行為及思想分析以及如何改善（附流程圖）
+          </div>
           <div class="art-date-sm">Aug 20, 2020</div>
           <div class="art-arr">→</div>
         </div>
       </div>
 
       <div class="art-row">
-        <div class="art-date"><span class="art-day">16</span><span class="art-mon">Jan</span><span class="art-yr">2021</span></div>
+        <div class="art-date">
+          <span class="art-day">16</span><span class="art-mon">Jan</span
+          ><span class="art-yr">2021</span>
+        </div>
         <div class="art-content">
           <div class="art-cat">人類圖 · 命理</div>
           <div class="art-title">G 中心空白及未定義的心得感想</div>
           <div class="art-arr">→</div>
         </div>
       </div>
-
     </div>
 
     <div class="pagination">
-      <span class="pg-nav" style="opacity:.3">← 較新文章</span>
+      <span class="pg-nav" style="opacity: 0.3">← 較新文章</span>
       <span class="pg-num">Page 1 of 18</span>
       <a class="pg-nav" href="#">較舊文章 →</a>
     </div>
@@ -273,10 +781,14 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-
     <div>
       <div class="sb-label">廣告</div>
-      <div class="ads-box"><div class="ads-note">Google Ads</div><div class="ads-note" style="font-size:9px;opacity:.5">300 × 250</div></div>
+      <div class="ads-box">
+        <div class="ads-note">Google Ads</div>
+        <div class="ads-note" style="font-size: 9px; opacity: 0.5">
+          300 × 250
+        </div>
+      </div>
     </div>
 
     <div>
@@ -284,94 +796,183 @@
       <div class="author-card">
         <div class="author-av"></div>
         <div class="author-name">Mina Yu</div>
-        <div class="author-bio">ENTP 奇女子。軟體工程師、部落客、多語學習者。喜歡探索不同文化跟發明些東東。</div>
+        <div class="author-bio">
+          ENTP
+          奇女子。軟體工程師、部落客、多語學習者。喜歡探索不同文化跟發明些東東。
+        </div>
       </div>
     </div>
 
     <div>
       <div class="sb-label">文章分類</div>
       <div class="cat-tree">
-
         <div class="cat-parent" id="c-travel">
           <div class="cat-parent-row" onclick="tog('c-travel')">
-            <div class="cat-parent-left"><span class="chevron">›</span><span class="cat-pname">旅行日記</span></div>
+            <div class="cat-parent-left">
+              <span class="chevron">›</span
+              ><span class="cat-pname">旅行日記</span>
+            </div>
             <span class="cat-pcount">56</span>
           </div>
-          <div class="cat-children"><div class="cat-children-inner">
-            <a class="cat-child" href="#"><span class="cat-cname">日本－自由行旅記</span><span class="cat-ccount">37</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">台灣－蕃薯故鄉走跳</span><span class="cat-ccount">5</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">歐洲－英國與冰島</span><span class="cat-ccount">3</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">美國－賓州企業參訪</span><span class="cat-ccount">11</span></a>
-          </div></div>
+          <div class="cat-children">
+            <div class="cat-children-inner">
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">日本－自由行旅記</span
+                ><span class="cat-ccount">37</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">台灣－蕃薯故鄉走跳</span
+                ><span class="cat-ccount">5</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">歐洲－英國與冰島</span
+                ><span class="cat-ccount">3</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">美國－賓州企業參訪</span
+                ><span class="cat-ccount">11</span></a
+              >
+            </div>
+          </div>
         </div>
 
         <div class="cat-parent" id="c-tech">
           <div class="cat-parent-row" onclick="tog('c-tech')">
-            <div class="cat-parent-left"><span class="chevron">›</span><span class="cat-pname">軟體開發</span></div>
+            <div class="cat-parent-left">
+              <span class="chevron">›</span
+              ><span class="cat-pname">軟體開發</span>
+            </div>
             <span class="cat-pcount">105</span>
           </div>
-          <div class="cat-children"><div class="cat-children-inner">
-            <a class="cat-child" href="#"><span class="cat-cname">後端工程師養成計劃</span><span class="cat-ccount">39</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">前端小菜鳥成長計畫</span><span class="cat-ccount">11</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">架構設計與解決方案</span><span class="cat-ccount">10</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">網頁與部落格建築日記</span><span class="cat-ccount">22</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">工作旅行記</span><span class="cat-ccount">10</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">碩論也瘋狂</span><span class="cat-ccount">13</span></a>
-          </div></div>
+          <div class="cat-children">
+            <div class="cat-children-inner">
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">後端工程師養成計劃</span
+                ><span class="cat-ccount">39</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">前端小菜鳥成長計畫</span
+                ><span class="cat-ccount">11</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">架構設計與解決方案</span
+                ><span class="cat-ccount">10</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">網頁與部落格建築日記</span
+                ><span class="cat-ccount">22</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">工作旅行記</span
+                ><span class="cat-ccount">10</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">碩論也瘋狂</span
+                ><span class="cat-ccount">13</span></a
+              >
+            </div>
+          </div>
         </div>
 
         <div class="cat-parent" id="c-mystic">
           <div class="cat-parent-row" onclick="tog('c-mystic')">
-            <div class="cat-parent-left"><span class="chevron">›</span><span class="cat-pname">神秘學與命理</span></div>
+            <div class="cat-parent-left">
+              <span class="chevron">›</span
+              ><span class="cat-pname">神秘學與命理</span>
+            </div>
             <span class="cat-pcount">26</span>
           </div>
-          <div class="cat-children"><div class="cat-children-inner">
-            <a class="cat-child" href="#"><span class="cat-cname">占卜</span><span class="cat-ccount">5</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">命理學與命盤</span><span class="cat-ccount">13</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">神秘學相關</span><span class="cat-ccount">6</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">寺廟與佛</span><span class="cat-ccount">2</span></a>
-          </div></div>
+          <div class="cat-children">
+            <div class="cat-children-inner">
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">占卜</span
+                ><span class="cat-ccount">5</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">命理學與命盤</span
+                ><span class="cat-ccount">13</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">神秘學相關</span
+                ><span class="cat-ccount">6</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">寺廟與佛</span
+                ><span class="cat-ccount">2</span></a
+              >
+            </div>
+          </div>
         </div>
 
         <div class="cat-parent" id="c-lang">
           <div class="cat-parent-row" onclick="tog('c-lang')">
-            <div class="cat-parent-left"><span class="chevron">›</span><span class="cat-pname">外語學習</span></div>
+            <div class="cat-parent-left">
+              <span class="chevron">›</span
+              ><span class="cat-pname">外語學習</span>
+            </div>
             <span class="cat-pcount">31</span>
           </div>
-          <div class="cat-children"><div class="cat-children-inner">
-            <a class="cat-child" href="#"><span class="cat-cname">學習經驗與考試相關</span><span class="cat-ccount">14</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">托福準備紀錄</span><span class="cat-ccount">17</span></a>
-          </div></div>
+          <div class="cat-children">
+            <div class="cat-children-inner">
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">學習經驗與考試相關</span
+                ><span class="cat-ccount">14</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">托福準備紀錄</span
+                ><span class="cat-ccount">17</span></a
+              >
+            </div>
+          </div>
         </div>
 
         <div class="cat-parent" id="c-life">
           <div class="cat-parent-row" onclick="tog('c-life')">
-            <div class="cat-parent-left"><span class="chevron">›</span><span class="cat-pname">日常生活</span></div>
+            <div class="cat-parent-left">
+              <span class="chevron">›</span
+              ><span class="cat-pname">日常生活</span>
+            </div>
             <span class="cat-pcount">43</span>
           </div>
-          <div class="cat-children"><div class="cat-children-inner">
-            <a class="cat-child" href="#"><span class="cat-cname">人生體驗與經驗</span><span class="cat-ccount">34</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">我的焦慮對抗日記</span><span class="cat-ccount">4</span></a>
-            <a class="cat-child" href="#"><span class="cat-cname">想東想西日常故事</span><span class="cat-ccount">5</span></a>
-          </div></div>
+          <div class="cat-children">
+            <div class="cat-children-inner">
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">人生體驗與經驗</span
+                ><span class="cat-ccount">34</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">我的焦慮對抗日記</span
+                ><span class="cat-ccount">4</span></a
+              >
+              <a class="cat-child" href="#"
+                ><span class="cat-cname">想東想西日常故事</span
+                ><span class="cat-ccount">5</span></a
+              >
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
 
     <div>
       <div class="sb-label">廣告</div>
-      <div class="ads-box-sm"><div class="ads-note">Google Ads</div><div class="ads-note" style="font-size:9px;opacity:.5">300 × 200</div></div>
+      <div class="ads-box-sm">
+        <div class="ads-note">Google Ads</div>
+        <div class="ads-note" style="font-size: 9px; opacity: 0.5">
+          300 × 200
+        </div>
+      </div>
     </div>
-
   </div>
 </div>
 
 <script>
-function tog(id){
-  const el=document.getElementById(id);
-  const was=el.classList.contains('open');
-  document.querySelectorAll('.cat-parent.open').forEach(p=>p.classList.remove('open'));
-  if(!was) el.classList.add('open');
-}
+  function tog(id) {
+    const el = document.getElementById(id);
+    const was = el.classList.contains("open");
+    document
+      .querySelectorAll(".cat-parent.open")
+      .forEach((p) => p.classList.remove("open"));
+    if (!was) el.classList.add("open");
+  }
 </script>
